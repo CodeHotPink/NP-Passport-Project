@@ -48,7 +48,7 @@ class Users():
 		return(f"Name: {self.first_name}\nState: {self.state}\nEmail: {self.email}")
 
 class Visits():
-	""" Visits information to populate passport on website """
+	""" Visit information to populate passport on website """
 
 	__tablename__ = "visits"
 
@@ -61,3 +61,20 @@ class Visits():
 						db.ForeignKey("parks.park_id"))
 	visit_date = db.Column(db.TimeDate)
 
+class Reviews():
+	""" Review information """
+
+	__tablename__ = "reviews"
+
+	review_id = db.Column(db.Integer,
+						autoincrement=True,
+						primary_key=True)
+	park_id = db.Column(db.Integer,
+						db.ForeignKey("parks.park_id"))
+	user_id = db.Column(db.Integer,
+						db.ForeignKey("users.user_id"))
+	num_of_stars = db.Column(db.Integer)
+	text_review = db.Column(db.String(5000))
+	review_date = db.Column(db.TimeDate)
+
+	
