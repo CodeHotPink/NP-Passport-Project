@@ -47,3 +47,17 @@ class Users():
 		""" User display """
 		return(f"Name: {self.first_name}\nState: {self.state}\nEmail: {self.email}")
 
+class Visits():
+	""" Visits information to populate passport on website """
+
+	__tablename__ = "visits"
+
+	visit_id = db.Column(db.Integer,
+						autoincrement=True,
+						primary_key=True)
+	user_id = db.Column(db.Integer,
+						db.ForeignKey("users.user_id"))
+	park_id = db.Column(db.Integer,
+						db.ForeignKey("parks.park_id"))
+	visit_date = db.Column(db.TimeDate)
+
