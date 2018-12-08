@@ -1,10 +1,10 @@
-""" Creating classes & DB for nationals park project """
+	""" Creating classes & DB for nationals park project """
 
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class Parks():
+class Park():
 	""" Information on each national park """
 	
 	__tablename__ = "parks"
@@ -25,7 +25,7 @@ class Parks():
 		""" Park display """
 		return(f"Park ID: {self.park_id}\nPark Name: {self.park_name}\nPark State: {self.park_state}")
 
-class Users():
+class User():
 	""" User information """
 
 	__tablename__ = "users"
@@ -47,7 +47,7 @@ class Users():
 		""" User display """
 		return(f"Name: {self.first_name}\nState: {self.state}\nEmail: {self.email}")
 
-class Visits():
+class Visit():
 	""" Visit information to populate passport on website """
 
 	__tablename__ = "visits"
@@ -61,7 +61,14 @@ class Visits():
 						db.ForeignKey("parks.park_id"))
 	visit_date = db.Column(db.TimeDate)
 
-class Reviews():
+	user = relationship("User", backref="visits")
+	park = relationship("Park", backref="parks")
+
+	__repr__(self):
+		""" Visit display"""
+		return(f"User {self.user_id} visited park {self.park_id} on {self.visit_date}.")
+
+class Review():
 	""" Review information """
 
 	__tablename__ = "reviews"
@@ -77,4 +84,10 @@ class Reviews():
 	text_review = db.Column(db.String(5000))
 	review_date = db.Column(db.TimeDate)
 
+	park = relationship("Park", backref="parks")
+	user = relationship("User", backref="visits")
+
+	__repr__(self):
+		""" Review display """
+		return(f"User {self.user_id} gave park {self.park_id} {self.num_of_stars}/5 stars on {self.review_date}.")
 	
