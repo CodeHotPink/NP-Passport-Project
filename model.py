@@ -1,13 +1,9 @@
 """ data models for project database """
-""" questions for queue:
-how to I set up classes in react that will use the db
-how do I use react with flask & db? 
-with the homepage route that I will define do I just render a jsx template?
-is there somewhere in jsx where I import db? Or how does it connect to the server?
-"""
 
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+app = Flask(__name__)
 db = SQLAlchemy()
 
 def connect_to_db(app, db_name):
@@ -26,13 +22,21 @@ class Park(db.Model):
 	park_id = db.Column(db.Integer, 
 						autoincrement=True,
 						primary_key=True)
-	park_name = db.Column(db.String(50))
-	park_address = db.Column(db.String(50))
-	park_state = db.Column(db.String(2))
-	longitude = db.Column(db.Numeric(10, 8))
-	latitude = db.Column(db.Numeric(10, 8))
+	park_name = db.Column(db.String(50),
+						nullable=False)
+	park_address = db.Column(db.String(50),
+						nullable=False)
+	park_state = db.Column(db.String(2),
+						nullable=False)
+	postal_code = db.Column(db.Integer(),
+						nullable=False)
+	longitude = db.Column(db.Numeric(10, 8),
+						nullable=False)
+	latitude = db.Column(db.Numeric(10, 8),
+						nullable=False)
 	phone_num = db.Column(db.String(10))
-	park_photo = db.Column(db.String(100))
+	park_photo = db.Column(db.String(100),
+						nullable=False)
 	park_website = db.Column(db.String(100))
 
 	def __repr__(self):
@@ -47,14 +51,21 @@ class User(db.Model):
 	user_id = db.Column(db.Integer, 
 						autoincrement=True,
 						primary_key=True)
-	first_name = db.Column(db.String(50))
-	last_name = db.Column(db.String(50))
-	gender = db.Column(db.String(3))
-	birthday = db.Column(db.DateTime())
-	city = db.Column(db.String(50))
+	first_name = db.Column(db.String(50),
+						nullable=False)
+	last_name = db.Column(db.String(50),
+						nullable=False)
+	gender = db.Column(db.String(2),
+						nullable=False)
+	birthday = db.Column(db.DateTime(),
+						nullable=False)
+	postal_code = db.Column(db.Integer())
 	state = db.Column(db.String(2))
-	email = db.Column(db.String(100))
-	password = db.Column(db.String(28))
+	email = db.Column(db.String(100),
+						nullable=False,
+						unique=True)
+	password = db.Column(db.String(28),
+						nullable=False)
 	photo = db.Column(db.String(100))
 
 	def __repr__(self):
@@ -70,13 +81,16 @@ class Visit(db.Model):
 						autoincrement=True,
 						primary_key=True)
 	user_id = db.Column(db.Integer,
-						db.ForeignKey("users.user_id"))
+						db.ForeignKey("users.user_id"),
+						nullable=False)
 	park_id = db.Column(db.Integer,
-						db.ForeignKey("parks.park_id"))
-	visit_date = db.Column(db.DateTime())
+						db.ForeignKey("parks.park_id"),
+						nullable=False)
+	visit_date = db.Column(db.DateTime(),
+						nullable=False)
 
 	user = db.relationship("User", backref="visits")
-	park = db.relationship("Park", backref="parks")
+	park = db.relationship("Park", backref="visits")
 
 	def __repr__(self):
 		""" Visit display"""
@@ -98,14 +112,38 @@ class Review(db.Model):
 	text_review = db.Column(db.String(5000))
 	review_date = db.Column(db.DateTime())
 
-	park = db.relationship("Park", backref="parks")
-	user = db.relationship("User", backref="visits")
+	park = db.relationship("Park", backref="reviews")
+	user = db.relationship("User", backref="reviews")
 
 	def __repr__(self):
 		""" Review display """
 		return(f"User {self.user_id} gave park {self.park_id} {self.num_of_stars}/5 stars on {self.review_date}.")
 
+def add_table_info():
+	""" adds dummy info to table to test """
+
+	Park(park_name='Yosemite',
+		park_address='1234 somehere in CA',
+		park_state='CA',
+		longitude=12345.1234,
+		latitude=12345.1234,
+		park_photo='/some/folder/park.png')
+	Park(park_name='Yellowstone',
+		park_address='4321 somehere in CA',
+		park_state='CA',
+		longitude=54321.1234,
+		latitude=54321.1234,
+		park_photo='/some/folder/park2.png')
+	Park(park_name='Niagra Falls',
+		park_address='1234 somehere in USA',
+		park_state='VN',
+		longitude=76543.4321,
+		latitude=76543.4321,
+		park_photo='/some/folder/park.png')
+
+
 
 """note to self, once I get seed data I need to db.session.add(looped over item) & db.session.commit()
 also when querying use 'db.session.query(...) this is more flexible
 & remember to chain queries & include fetching record (i.e. '.all()', '.first()'"""
+
