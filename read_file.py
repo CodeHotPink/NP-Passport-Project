@@ -1,4 +1,5 @@
 import urllib.request, json
+from pprint import pprint
 import key
 
 # Cannot enter fields into api yet because it will cause json.loads() to error. 
@@ -31,26 +32,34 @@ new_req = f"https://developer.nps.gov/api/v1/parks?{park_field_condition}&limit=
 
 new_response = urllib.request.urlopen(new_req).read()
 national_parks_data = json.loads(new_response)
-"""note to self: new_data is now ONLY national parks in json dictionary. Now I have to uncomment below so I can start storing it into my db """
+national_parks_data = national_parks_data['data']
 
-
-# Original below
-
-
-# import urllib.request, json
-# import key
-# from pprint import pprint
-
-
-
-# endpoint = "https://developer.nps.gov/api/v1/parks?limit=600&fields=addresses,images,contacts"
-# HEADERS = {f"Authorization":"INSERT-{key.NPS}"}
-# req = urllib.request.Request(endpoint,headers=HEADERS)
-
-# # Execute request and parse response
-# response = urllib.request.urlopen(req).read()
-# data = json.loads(response.decode('utf-8'))
-
+for index, park in enumerate(national_parks_data):
+	park_name = national_parks_data[index]['fullName']
+	print(park_name)
+	park_description = national_parks_data[index]['description']
+	print(park_description)
+	park_weather = national_parks_data[index]['weatherInfo']
+	print(park_weather)
+	park_address = national_parks_data[index]['addresses'][1]['line1']
+	print(park_address)
+	park_state = national_parks_data[index]['addresses'][1]['stateCode']
+	print(park_state)
+	postal_code = national_parks_data[index]['addresses'][1]['postalCode']
+	print(postal_code)
+	lat_long = national_parks_data[index]['latLong']
+	lat_long = lat_long.split(",")
+	latitude = lat_long[0][4:]
+	print(latitude)
+	longitude = lat_long[1][6:]
+	print(longitude)
+	phone_num = national_parks_data[index]['contacts']['phoneNumbers'][0]['phoneNumber']
+	print(phone_num)
+	park_photo = national_parks_data[index]['images'][0]['url']
+	print(park_photo)
+	park_website = national_parks_data[index]['url']
+	print(park_website)
+	print("\n\n\n\n")
 
 # # file = open("park_info.json").read()
 
@@ -62,32 +71,6 @@ national_parks_data = json.loads(new_response)
 # print(len(list_of_object))
 # # for i in list_of_object:
 # # 	pprint(f"this is one instance: {i}")
-# # for index, park in enumerate(list_of_object):
-# # 	if list_of_object[index]['designation'] == "National Park":
-# # 		park_name = list_of_object[index]['fullName']
-# # 		print(park_name)
-# # 		park_description = list_of_object[index]['description']
-# # 		print(park_description)
-# # 		park_weather = list_of_object[index]['weatherInfo']
-# # 		print(park_weather)
-# # 		park_address = list_of_object[index]['addresses'][1]['line1']
-# # 		print(park_address)
-# # 		park_state = list_of_object[index]['addresses'][1]['stateCode']
-# # 		print(park_state)
-# # 		postal_code = list_of_object[index]['addresses'][1]['postalCode']
-# # 		print(postal_code)
-# # 		lat_long = list_of_object[index]['latLong']
-# # 		lat_long = lat_long.split(",")
-# # 		latitude = lat_long[0][4:]
-# # 		print(latitude)
-# # 		longitude = lat_long[1][6:]
-# # 		print(longitude)
-# # 		phone_num = list_of_object[index]['contacts']['phoneNumbers'][0]['phoneNumber']
-# 		print(phone_num)
-# 		park_photo = list_of_object[index]['images'][0]['url']
-# 		print(park_photo)
-# 		park_website = list_of_object[index]['url']
-# 		print(park_website)
 # 	else:
 # 		print(f"skip, this is a {designation}")
 
