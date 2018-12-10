@@ -1,20 +1,18 @@
 import urllib.request, json
 import key
 
-# Configure API request
-# Note limit parameter is arbitrary value greater than total number of NPS sites
-# endpoint = "https://developer.nps.gov/api/v1/parks?limit=600"
-# HEADERS = {"Authorization":"{}".format(key.NPS)}
-# req = urllib.request.Request(endpoint,headers=HEADERS)
+# Cannot enter fields into api yet because it will cause json.loads() to error. 
+# This is default information for all parks
 req = f"https://developer.nps.gov/api/v1/parks?limit=600&api_key={key.NPS}"
 
 # Execute request and parse response
 response = urllib.request.urlopen(req).read()
 data = json.loads(response)
 
-# Prepare and execute output
+# Creating list of national park park codes to use in later api request
 park_codes = []
 for park in data["data"]:
+	# Slicing to character 13 due to some designations being "National Park & Preserve". They will be included along with strictly national parks
 	if park['designation'][0:13] == "National Park":
 		print("yes this is a national park")
 		park_codes.append(park['parkCode'])
@@ -23,6 +21,7 @@ for park in data["data"]:
 print(park_codes)
 print(len(park_codes))
 
+# Creating conditional string to include in api request
 park_field_condition = "parkCode="
 for code in park_codes:
 	if code == park_codes[-1]:
@@ -32,10 +31,11 @@ for code in park_codes:
 
 print(park_field_condition)
 
+# Now that api request will be smaller & will work with json.loads I am now including the additional fields needed for db
 new_req = f"https://developer.nps.gov/api/v1/parks?{park_field_condition}&limit=600&fields=addresses,images,contacts&api_key={key.NPS}"
 
 new_response = urllib.request.urlopen(new_req).read()
-new_data = json.loads(new_response)
+national_parks_data = json.loads(new_response)
 """note to self: new_data is now ONLY national parks in json dictionary. Now I have to uncomment below so I can start storing it into my db """
 
 
