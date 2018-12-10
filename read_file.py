@@ -9,20 +9,23 @@ def api_request(link):
 	data = data['data']
 	return data
 
+def create_national_parks_code_list(list_of_dictionaries):
+	""" Creates list of national park codes to use in later api request """
+	park_codes = []
+	for park in list_of_dictionaries:
+		# Slicing to character 13 due to some destinations being "National Park & Preserve". They will be included along with strictly national parks destinations
+		if park['designation'][0:13] == "National Park":
+			park_codes.append(park['parkCode'])
+		else:
+			pass
+	return park_codes
+	
 # Cannot enter fields into api yet because it will cause json.loads() to error. 
 # This is default information for all parks
 req = f"https://developer.nps.gov/api/v1/parks?limit=600&api_key={key.NPS}"
-
 all_destinations = api_request(req)
 
-# Creating list of national park park codes to use in later api request
-park_codes = []
-for park in all_destinations:
-	# Slicing to character 13 due to some destinations being "National Park & Preserve". They will be included along with strictly national parks destinations
-	if park['designation'][0:13] == "National Park":
-		park_codes.append(park['parkCode'])
-	else:
-		pass
+park_codes = create_national_parks_code_list(all_destinations)
 
 # Creating conditional string to include in api request
 park_field_condition = "parkCode="
