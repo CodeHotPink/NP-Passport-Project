@@ -2,18 +2,23 @@ import urllib.request, json
 from pprint import pprint
 import key
 
+def api_request(link):
+	""" makes api request & returns list of dictionaries """
+	api_response = urllib.request.urlopen(link).read()
+	data = json.loads(api_response)
+	data = data['data']
+	return data
+
 # Cannot enter fields into api yet because it will cause json.loads() to error. 
 # This is default information for all parks
 req = f"https://developer.nps.gov/api/v1/parks?limit=600&api_key={key.NPS}"
 
-# Execute request and parse response
-response = urllib.request.urlopen(req).read()
-data = json.loads(response)
+all_destinations = api_request(req)
 
 # Creating list of national park park codes to use in later api request
 park_codes = []
-for park in data["data"]:
-	# Slicing to character 13 due to some designations being "National Park & Preserve". They will be included along with strictly national parks
+for park in all_destinations:
+	# Slicing to character 13 due to some destinations being "National Park & Preserve". They will be included along with strictly national parks destinations
 	if park['designation'][0:13] == "National Park":
 		park_codes.append(park['parkCode'])
 	else:
@@ -30,9 +35,7 @@ for code in park_codes:
 # Now that api request will be smaller & will work with json.loads I am now including the additional fields needed for db
 new_req = f"https://developer.nps.gov/api/v1/parks?{park_field_condition}&limit=600&fields=addresses,images,contacts&api_key={key.NPS}"
 
-new_response = urllib.request.urlopen(new_req).read()
-national_parks_data = json.loads(new_response)
-national_parks_data = national_parks_data['data']
+national_parks_data = api_request(new_req)
 
 for index, park in enumerate(national_parks_data):
 	park_name = national_parks_data[index]['fullName']
@@ -60,18 +63,3 @@ for index, park in enumerate(national_parks_data):
 	park_website = national_parks_data[index]['url']
 	print(park_website)
 	print("\n\n\n\n")
-
-# # file = open("park_info.json").read()
-
-# # file_info = json.loads(file.decode('utf-8'))
-# # print(file_info)
-# # print("after prettyprint")
-# # pprint(file_info)
-# list_of_object = data['data']
-# print(len(list_of_object))
-# # for i in list_of_object:
-# # 	pprint(f"this is one instance: {i}")
-# 	else:
-# 		print(f"skip, this is a {designation}")
-
-# """note to self, list_of_object is a list of the place's information. I need to turn it into a dictionary."""
