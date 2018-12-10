@@ -14,12 +14,9 @@ park_codes = []
 for park in data["data"]:
 	# Slicing to character 13 due to some designations being "National Park & Preserve". They will be included along with strictly national parks
 	if park['designation'][0:13] == "National Park":
-		print("yes this is a national park")
 		park_codes.append(park['parkCode'])
 	else:
-		print(f"skip, this is a {park['designation']}")
-print(park_codes)
-print(len(park_codes))
+		pass
 
 # Creating conditional string to include in api request
 park_field_condition = "parkCode="
@@ -28,8 +25,6 @@ for code in park_codes:
 		park_field_condition+=code
 	else:
 		park_field_condition+=(code+",")
-
-print(park_field_condition)
 
 # Now that api request will be smaller & will work with json.loads I am now including the additional fields needed for db
 new_req = f"https://developer.nps.gov/api/v1/parks?{park_field_condition}&limit=600&fields=addresses,images,contacts&api_key={key.NPS}"
