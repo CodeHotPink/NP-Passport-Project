@@ -1,45 +1,31 @@
+from model import connect_to_db, Park, User, Visit, Review
+from get_api import api_request, create_parks_code_list, create_park_field_condition
 import urllib.request, json
 from pprint import pprint
 import key
 
-def api_request(link):
-	""" makes api request & returns list of dictionaries """
-	api_response = urllib.request.urlopen(link).read()
-	data = json.loads(api_response)
-	data = data['data']
-	return data
 
-def create_national_parks_code_list(list_of_dictionaries):
-	""" Creates list of national park codes to use in later api request """
-	park_codes = []
-	for park in list_of_dictionaries:
-		# Slicing to character 13 due to some destinations being "National Park & Preserve". They will be included along with strictly national parks destinations
-		if park['designation'][0:13] == "National Park":
-			park_codes.append(park['parkCode'])
-		else:
-			pass
-	return park_codes
-	
-# Cannot enter fields into api yet because it will cause json.loads() to error. 
+# Cannot enter additional fields into api request yet because it will cause json.loads() to error. 
 # This is default information for all parks
 req = f"https://developer.nps.gov/api/v1/parks?limit=600&api_key={key.NPS}"
 all_destinations = api_request(req)
 
-park_codes = create_national_parks_code_list(all_destinations)
 
+# Creating park codes based off designation words for api request
+park_codes = create_parks_code_list("National Park",all_destinations)
 # Creating conditional string to include in api request
-park_field_condition = "parkCode="
-for code in park_codes:
-	if code == park_codes[-1]:
-		park_field_condition+=code
-	else:
-		park_field_condition+=(code+",")
+park_field_condition = create_park_field_condition(park_codes)
 
-# Now that api request will be smaller & will work with json.loads I am now including the additional fields needed for db
+
+# Now that api request will be smaller & will work with json.loads we will now include the additional fields needed for db
 new_req = f"https://developer.nps.gov/api/v1/parks?{park_field_condition}&limit=600&fields=addresses,images,contacts&api_key={key.NPS}"
-
 national_parks_data = api_request(new_req)
 
+
+""" Note to self: must start db load functions. Will need one for each class; Park, User, Visit, Review 
+	Remember to db.add() & db.commit() """
+
+# Park class upload, need to make into function
 for index, park in enumerate(national_parks_data):
 	park_name = national_parks_data[index]['fullName']
 	print(park_name)

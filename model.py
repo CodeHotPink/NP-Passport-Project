@@ -122,32 +122,3 @@ class Review(db.Model):
 	def __repr__(self):
 		""" Review display """
 		return(f"User {self.user_id} gave park {self.park_id} {self.num_of_stars}/5 stars on {self.review_date}.")
-
-def add_table_info():
-	""" adds dummy info to table to test """
-
-	Park(park_name='Yosemite',
-		park_address='1234 somehere in CA',
-		park_state='CA',
-		longitude=12345.1234,
-		latitude=12345.1234,
-		park_photo='/some/folder/park.png')
-	Park(park_name='Yellowstone',
-		park_address='4321 somehere in CA',
-		park_state='CA',
-		longitude=54321.1234,
-		latitude=54321.1234,
-		park_photo='/some/folder/park2.png')
-	Park(park_name='Niagra Falls',
-		park_address='1234 somehere in USA',
-		park_state='VN',
-		longitude=76543.4321,
-		latitude=76543.4321,
-		park_photo='/some/folder/park.png')
-
-
-
-"""note to self, once I get seed data I need to db.session.add(looped over item) & db.session.commit()
-also when querying use 'db.session.query(...) this is more flexible
-& remember to chain queries & include fetching record (i.e. '.all()', '.first()'"""
-
