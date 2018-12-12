@@ -9,29 +9,13 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 db = SQLAlchemy()
 
-# Cannot enter additional fields into api request yet because it will cause json.loads() to error. 
-# This is default information for all parks
-req = f"https://developer.nps.gov/api/v1/parks?limit=600&api_key={key.NPS}"
-all_destinations = api_request(req)
-
-
-# Creating park codes based off designation words for api request
-park_codes = create_parks_code_list("National Park",all_destinations)
-# Creating conditional string to include in api request
-park_field_condition = create_park_field_condition(park_codes)
-
-
-# Now that api request will be smaller & will work with json.loads we will now include the additional fields needed for db
-new_req = f"https://developer.nps.gov/api/v1/parks?{park_field_condition}&limit=600&fields=addresses,images,contacts&api_key={key.NPS}"
-national_parks_data = api_request(new_req)
-
-
 """ Note to self: must start db load functions. Will need one for each class; Park, User, Visit, Review 
 	Remember to db.add() & db.commit() """
-def load_parks_json(json_file):
+def load_parks_json():
 	""" Delete current db to eliminate duplicates & re-enter using json file """
 	db.dropdb(parks)
 	db.createdb(parks)
+	json_file = "seed_data/national_parks_list.json"
 	for index, park in enumerate(json_file):
 		park_name = json_file[index]['fullName']
 		park_description = json_file[index]['description']
@@ -57,18 +41,17 @@ def load_parks_json(json_file):
 							phone_num=phone_num,
 							park_photo=park_photo,
 							park_website=park_website)
-		db.add(national_park)
-		db.commit(national_park)
+		db.session.add(national_park)
+	db.session.commit()
 	print("Parks table is now loaded")
 
-def load_user(user_file_path):
+def load_user():
 	""" Delete current db to eliminate duplicates. Parse user_file for re-enter """
 
-	# db.dropdb(users)
-	# db.createdb(users)	
+	db.dropdb(users)
+	db.createdb(users)	
 
-	# creates list of users separated by commas
-	user_file = open(user_file_path).readlines()
+	user_file = open("seed_data/user_data.csv").readlines()
 	for user in user_file:
 		user = user.rsplit("\n")
 		user = user[0].split(",")
@@ -90,6 +73,6 @@ def load_user(user_file_path):
 			email=email,
 			password=password,
 			photo=photo)
-		db.add(db_user)
-		db.commit(db_user)
+		db.session.add(db_user)
+	db.session.commit()
 	print("Users table is now loaded")
