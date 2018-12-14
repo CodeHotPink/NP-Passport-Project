@@ -13,8 +13,7 @@ db = SQLAlchemy()
 	Remember to db.add() & db.commit() """
 def load_parks_json():
 	""" Delete current db to eliminate duplicates & re-enter using json file """
-	db.dropdb(parks)
-	db.createdb(parks)
+	Park.query.delete()
 	json_file = "seed_data/national_parks_list.json"
 	for index, park in enumerate(json_file):
 		park_name = json_file[index]['fullName']
@@ -76,3 +75,46 @@ def load_user():
 		db.session.add(db_user)
 	db.session.commit()
 	print("Users table is now loaded")
+
+def load_visit():
+	""" Delete current db to eliminate duplicates. Parse visit_file for re-enter """
+
+	Visit.query.delete()
+
+	visit_file = open("seed_data/visit_data.csv").readlines()
+	for visit in visit_file:
+		visit = visit.rsplit("\n")
+		visit = visit[0].split(",")
+		user_id = visit[0]
+		park_id = visit[1]
+		visit_date = visit[2]
+		db_visit = Visit(user_id=user_id,
+			park_id=park_id,
+			visit_date=visit_date)
+		db.session.add(db_visit)
+	db.session.commit()
+	print("Visits table is now loaded")
+
+
+def load_review():
+	""" Delete current db to eliminate duplicates. Parse review_file for re-enter """
+
+	Review.query.delete()
+
+	review_file = open("seed_data/review_data.csv").readlines()
+	for review in review_file:
+		review = review.rsplit("\n")
+		review = review[0].split(",")
+		park_id = review[0]
+		user_id = review[1]
+		num_of_stars = review[2]
+		text_review = review[3]
+		review_date = review[4]
+		db_review = review(park_id=park_id,
+			user_id=user_id,
+			num_of_stars=num_of_stars,
+			text_review=text_review,
+			review_date=review_date,)
+		db.session.add(db_review)
+	db.session.commit()
+	print("Reviews table is now loaded")

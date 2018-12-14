@@ -112,9 +112,11 @@ class Review(db.Model):
 						db.ForeignKey("parks.park_id"))
 	user_id = db.Column(db.Integer,
 						db.ForeignKey("users.user_id"))
-	num_of_stars = db.Column(db.Integer)
+	num_of_stars = db.Column(db.Integer,
+							nullable=False)
 	text_review = db.Column(db.String(5000))
-	review_date = db.Column(db.DateTime())
+	review_date = db.Column(db.DateTime(),
+							nullable=False)
 
 	park = db.relationship("Park", backref="reviews")
 	user = db.relationship("User", backref="reviews")
