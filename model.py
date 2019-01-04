@@ -32,11 +32,11 @@ class Park(db.Model):
 						nullable=False)
 	park_state = db.Column(db.String(2),
 						nullable=False)
-	postal_code = db.Column(db.Integer(),
+	postal_code = db.Column(db.String(5),
 						nullable=False)
-	latitude = db.Column(db.Numeric(10, 8),
+	latitude = db.Column(db.String(21),
 						nullable=False)
-	longitude = db.Column(db.Numeric(10, 8),
+	longitude = db.Column(db.String(21),
 						nullable=False)
 	phone_num = db.Column(db.String(12))
 	park_photo = db.Column(db.String(100),
@@ -63,7 +63,8 @@ class User(db.Model):
 						nullable=False)
 	birthday = db.Column(db.DateTime(),
 						nullable=False)
-	postal_code = db.Column(db.Integer())
+	postal_code = db.Column(db.Integer(),
+						nullable=True)
 	state = db.Column(db.String(2))
 	email = db.Column(db.String(100),
 						nullable=False,

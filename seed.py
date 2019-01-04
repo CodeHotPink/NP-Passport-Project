@@ -1,27 +1,32 @@
-from model import connect_to_db, Park, User, Visit, Review
-from get_api import api_request, create_parks_code_list, create_park_field_condition
+from model import connect_to_db, Park, User, Visit, Review, app, db
+from get_api import api_request, create_parks_code_list, create_park_field_condition, json_file_request
 import urllib.request, json
 from pprint import pprint
 import key
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-db = SQLAlchemy()
+# app = Flask(__name__)
+# db = SQLAlchemy()
 
 """ Note to self: must start db load functions. Will need one for each class; Park, User, Visit, Review 
 	Remember to db.add() & db.commit() """
 def load_parks_json():
 	""" Delete current db to eliminate duplicates & re-enter using json file """
 	Park.query.delete()
-	json_file = "seed_data/national_parks_list.json"
+	json_file = json_file_request("seed_data/national_parks_list.json")
 	for index, park in enumerate(json_file):
+		print(f"this is {index}, this is {park}")
 		park_name = json_file[index]['fullName']
 		park_description = json_file[index]['description']
 		park_weather = json_file[index]['weatherInfo']
-		park_address = json_file[index]['addresses'][1]['line1']
-		park_state = json_file[index]['addresses'][1]['stateCode']
-		postal_code = json_file[index]['addresses'][1]['postalCode']
+		addresses = json_file[index]['addresses']
+		for address in addresses:
+			if address['type'] == "Physical":
+				park_address = address['line1']
+				park_state = address['stateCode']
+				postal_code = address['postalCode']
+				postal_code = str(postal_code)[0:5]
 		lat_long = json_file[index]['latLong']
 		lat_long = lat_long.split(",")
 		latitude = lat_long[0][4:]
@@ -47,22 +52,19 @@ def load_parks_json():
 def load_user():
 	""" Delete current db to eliminate duplicates. Parse user_file for re-enter """
 
-	db.dropdb(users)
-	db.createdb(users)	
+	User.query.delete()
 
-	user_file = open("seed_data/user_data.csv").readlines()
-	for user in user_file:
-		user = user.rsplit("\n")
-		user = user[0].split(",")
-		first_name = user[0]
-		last_name = user[1]
-		gender = user[2]
-		birthday = user[3]
-		postal_code = user[4]
-		state = user[5]
-		email = user[6]
-		password = user[7]
-		photo = user[8]
+	user_file = json_file_request("seed_data/user_data.json")
+	for index, user in enumerate(user_file):
+		first_name = user_file[index]['first_name']
+		last_name = user_file[index]['last_name']
+		gender = user_file[index]['gender']
+		birthday = user_file[index]['birthday']
+		postal_code = user_file[index]['postal_code']
+		state = user_file[index]['state']
+		email = user_file[index]['email']
+		password = user_file[index]['password']
+		photo = user_file[index]['photo']
 		db_user = User(first_name=first_name,
 			last_name=last_name,
 			gender=gender,
@@ -81,13 +83,11 @@ def load_visit():
 
 	Visit.query.delete()
 
-	visit_file = open("seed_data/visit_data.csv").readlines()
-	for visit in visit_file:
-		visit = visit.rsplit("\n")
-		visit = visit[0].split(",")
-		user_id = visit[0]
-		park_id = visit[1]
-		visit_date = visit[2]
+	visit_file = json_file_request("seed_data/visit_data.json")
+	for index, visit in enumerate(visit_file):
+		user_id = visit_file[index]['user_id']
+		park_id = visit_file[index]['park_id']
+		visit_date = visit_file[index]['visit_date']
 		db_visit = Visit(user_id=user_id,
 			park_id=park_id,
 			visit_date=visit_date)
@@ -95,26 +95,31 @@ def load_visit():
 	db.session.commit()
 	print("Visits table is now loaded")
 
-
 def load_review():
 	""" Delete current db to eliminate duplicates. Parse review_file for re-enter """
 
 	Review.query.delete()
 
-	review_file = open("seed_data/review_data.csv").readlines()
-	for review in review_file:
-		review = review.rsplit("\n")
-		review = review[0].split(",")
-		park_id = review[0]
-		user_id = review[1]
-		num_of_stars = review[2]
-		text_review = review[3]
-		review_date = review[4]
-		db_review = review(park_id=park_id,
+	review_file = json_file_request("seed_data/review_data.json")
+	for index, review in enumerate(review_file):
+		park_id = review_file[index]['park_id']
+		user_id = review_file[index]['user_id']
+		num_of_stars = review_file[index]['num_of_stars']
+		text_review = review_file[index]['text_review']
+		review_date = review_file[index]['review_date']
+		db_review = Review(park_id=park_id,
 			user_id=user_id,
 			num_of_stars=num_of_stars,
 			text_review=text_review,
-			review_date=review_date,)
+			review_date=review_date)
 		db.session.add(db_review)
 	db.session.commit()
 	print("Reviews table is now loaded")
+	
+
+connect_to_db(app, "np_project")
+# db.create_all()
+# load_parks_json()
+# load_users()
+# load_visit()
+# load_review()

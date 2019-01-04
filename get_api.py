@@ -9,6 +9,13 @@ def api_request(link):
 	data = data['data']
 	return data
 
+def json_file_request(link):
+	""" makes api request & returns list of dictionaries """
+	api_response = open(link).read()
+	data = json.loads(api_response)
+	data = data['data']
+	return data
+
 def create_parks_code_list(designation, list_of_dictionaries):
 	""" Creates list of national park codes based off designation description to use in later api request. 
 	Designation examples: "National Park", "Historical", "Trail", etc. """
