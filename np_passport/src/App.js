@@ -15,9 +15,9 @@ class App extends Component {
         <header className="App-header">
           <nav>
             National Parks Passport
-            <ParkList />
           </nav>
         </header>
+        <ParkList />
       </div>
     );
   }
