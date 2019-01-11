@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css'; 
 import LoginForm from './loginForm';
 import ParkList from './ParkList';
+import ReviewList from './ReviewList';
 
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
           </nav>
         </header>
         <ParkList />
+        <ReviewList />
       </div>
     );
   }
