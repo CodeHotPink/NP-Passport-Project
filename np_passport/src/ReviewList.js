@@ -14,10 +14,13 @@ class ReviewList extends Component {
 		this.handleClick = this.handleClick.bind(this)
 	} 
 
-	sortsReviews(review) {
-		// console.log(this.state)
-		console.log(review.park_id)
-		// console.log(this.state.sortReviewList)
+	sortsReviews(individualReview) {
+		const review = individualReview.individualReview
+		const parkId = review.park_id
+		const userId = review.user_id
+		const numOfStars = review.num_of_stars
+		const textReview = review.text_review
+		console.log(parkId)
 	}
 
 	handleClick() {
@@ -26,8 +29,7 @@ class ReviewList extends Component {
 
 	renderReviews() {
 		// let reviewList = this.state.reviews.map(reviewItem => <ReviewItem review={reviewItem} />)
-		let reviewList = this.state.reviews.map(sortReview => console.log(sortReview.park_id))
-		console.log(reviewList)
+		let reviewList = this.state.reviews.map(individualReview => {this.sortsReviews({individualReview})})
 		// if (this.state.showReviews) {
 		// 	return reviewList
 		// }
