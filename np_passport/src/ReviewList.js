@@ -8,6 +8,7 @@ class ReviewList extends Component {
 		this.state = {
 			reviews: data['data'],
 			review: data['data'][0],
+
 			showReviews: false
 		}
 		this.renderReviews = this.renderReviews.bind(this)
@@ -15,12 +16,22 @@ class ReviewList extends Component {
 	} 
 
 	sortsReviews(individualReview) {
-		const review = individualReview.individualReview
-		const parkId = review.park_id
-		const userId = review.user_id
-		const numOfStars = review.num_of_stars
-		const textReview = review.text_review
-		console.log(parkId)
+		fetch('http://localhost:5000/display_park_reviews', {
+			method: "GET",
+			mode: "cors",
+			credentials: 'include',
+			headers: {
+				"Content-Type": "application/database",
+			}
+			})
+		.then(data => console.log(data))		
+		// const reviews = new Object()
+		// const review = individualReview.individualReview
+		// const parkId = review.park_id
+		// const userId = review.user_id
+		// const numOfStars = review.num_of_stars
+		// const textReview = review.text_review
+		// console.log(parkId)
 	}
 
 	handleClick() {
@@ -29,7 +40,8 @@ class ReviewList extends Component {
 
 	renderReviews() {
 		// let reviewList = this.state.reviews.map(reviewItem => <ReviewItem review={reviewItem} />)
-		let reviewList = this.state.reviews.map(individualReview => {this.sortsReviews({individualReview})})
+		// let reviewList = this.state.reviews.map(individualReview => {this.sortsReviews({individualReview})})
+		this.sortsReviews(this.state.review)
 		// if (this.state.showReviews) {
 		// 	return reviewList
 		// }
@@ -49,6 +61,6 @@ class ReviewList extends Component {
 		)
 	}
 }
-// 4 columns total: column 1(Need photo on left), column 2((average number of stars, button for view website), column 3(address) & column 4(google map display)
+
 
 export default ReviewList;

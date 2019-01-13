@@ -4,7 +4,6 @@ from flask_cors import CORS, cross_origin
 
 # pip3 isntall -u flask-cors
 app = Flask(__name__)
-# CORS(app)
 cors = CORS(app, resources={r"/*": { r"supports_credentials":True, r"origins": r"http://localhost:3000" }})
 
 app.secret_key = "Don't go without your passport!"
@@ -21,6 +20,15 @@ def index():
 	# html = render_template("np_passport/public/index.html")
 	welcome = "Hi there" 
 	return jsonify(welcome)
+
+@app.route("/display_park_reviews")
+@cross_origin()
+def display_park_reviews():
+	"""Given a park's ID, it will return all reviews for that park"""
+	q = Review.query().filter(park_id=1).first()
+
+	print(q)
+
 
 if __name__ == "__main__":
 	# connect_to_db(app)
