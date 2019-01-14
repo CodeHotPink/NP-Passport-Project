@@ -4,7 +4,6 @@ import ReviewItem from './ReviewItem';
 
 class ReviewList extends Component {
 	constructor(props){
-		const parkName = props['park']
 		super(props);
 		this.state = {
 			reviews: data['data'],
@@ -17,7 +16,7 @@ class ReviewList extends Component {
 
 	sortsReviews() {
 		let url = new URL("http://localhost:5000/display_park_reviews"),
-			params = {park:this.parkName}
+			params = {park:this.props['park']}
 		Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 		fetch({url}, {
 			method: "GET",
@@ -25,12 +24,13 @@ class ReviewList extends Component {
 			credentials: 'include',
 			headers: {
 				"Content-Type": "application/database"
-			},
+			}
 			})
 		.then(data => data.json())
 		.then((data) => {
 			console.log(data)
-		})		
+		})	
+		.catch(error => console.error(error));	
 		// const reviews = new Object()
 		// const review = individualReview.individualReview
 		// const parkId = review.park_id
