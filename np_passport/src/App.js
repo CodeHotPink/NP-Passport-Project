@@ -19,7 +19,6 @@ class App extends Component {
           </nav>
         </header>
         <ParkList />
-        <ReviewList />
       </div>
     );
   }

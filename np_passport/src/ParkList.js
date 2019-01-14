@@ -19,7 +19,6 @@ class ParkList extends Component {
 	}
 
 	renderParks() {
-		console.log(this.state)
 		let parkList = this.state.parks.map(parkItem => <ParkItem park={parkItem} />)
 		if (this.state.showParks) {
 			return parkList

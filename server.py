@@ -1,6 +1,7 @@
 from model import (Park, User, Visit, Review, connect_to_db, db)
 from flask import (Flask, jsonify, redirect, request, session)
 from flask_cors import CORS, cross_origin
+from flask_sqlalchemy import SQLAlchemy
 
 # pip3 isntall -u flask-cors
 app = Flask(__name__)
@@ -14,20 +15,24 @@ def after(response):
   response.headers.add('Access-Control-Allow-Credentials', 'true')
   return response
 
-@app.route("/")
+@app.route('/')
 def index():
 	""" index.html for jsx """
 	# html = render_template("np_passport/public/index.html")
 	welcome = "Hi there" 
 	return jsonify(welcome)
 
-@app.route("/display_park_reviews")
+@app.route('/display_park_reviews', methods=['GET'])
 @cross_origin()
 def display_park_reviews():
 	"""Given a park's ID, it will return all reviews for that park"""
-	q = Review.query().filter(park_id=1).first()
-
+	data = request.get_json()
+	print(f"this is the data coming from request: {data}")
+	q = Review.query.filter(Review.park_id == 1).one()
 	print(q)
+	# stars = q.num_of_stars
+	# print(stars)
+	return jsonify(q)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReviewList from './ReviewList';
 
 const ParkItem = ({park}) => {        
   const image = park['images'][0]['url']
@@ -14,7 +15,7 @@ const ParkItem = ({park}) => {
     <div>
       {parkName}<br />
       <img src={image} alt={imageAlt} height='100' width='100' /><br />
-      Put # of stars<br />
+      Put # of stars<ReviewList park = {parkName}/>
       <a href ='{parkName} Website' /><br /> 
       {address}<br />
       {city}, {state} {zipCode}<br />

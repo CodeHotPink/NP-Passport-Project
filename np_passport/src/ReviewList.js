@@ -4,27 +4,33 @@ import ReviewItem from './ReviewItem';
 
 class ReviewList extends Component {
 	constructor(props){
+		const parkName = props['park']
 		super(props);
 		this.state = {
 			reviews: data['data'],
 			review: data['data'][0],
-
 			showReviews: false
 		}
 		this.renderReviews = this.renderReviews.bind(this)
 		this.handleClick = this.handleClick.bind(this)
 	} 
 
-	sortsReviews(individualReview) {
-		fetch('http://localhost:5000/display_park_reviews', {
+	sortsReviews() {
+		let url = new URL("http://localhost:5000/display_park_reviews"),
+			params = {park:this.parkName}
+		Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+		fetch({url}, {
 			method: "GET",
 			mode: "cors",
 			credentials: 'include',
 			headers: {
-				"Content-Type": "application/database",
-			}
+				"Content-Type": "application/database"
+			},
 			})
-		.then(data => console.log(data))		
+		.then(data => data.json())
+		.then((data) => {
+			console.log(data)
+		})		
 		// const reviews = new Object()
 		// const review = individualReview.individualReview
 		// const parkId = review.park_id
@@ -41,7 +47,7 @@ class ReviewList extends Component {
 	renderReviews() {
 		// let reviewList = this.state.reviews.map(reviewItem => <ReviewItem review={reviewItem} />)
 		// let reviewList = this.state.reviews.map(individualReview => {this.sortsReviews({individualReview})})
-		this.sortsReviews(this.state.review)
+		this.sortsReviews()
 		// if (this.state.showReviews) {
 		// 	return reviewList
 		// }
