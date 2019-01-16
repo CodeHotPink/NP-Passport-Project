@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import data from './review_data';
 import ReviewItem from './ReviewItem';
 
 class ReviewList extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			reviews: data['data'],
-			review: data['data'][0],
 			showReviews: false
 		}
 		this.renderReviews = this.renderReviews.bind(this)
 		this.handleClick = this.handleClick.bind(this)
+		this.listDisplayReviews = this.listDisplayReviews.bind(this)
+		this.fetchReviews = this.fetchReviews.bind(this)
 	} 
 
 	listDisplayReviews(reviewsFromFetch) {
-		reviewsFromFetch.map(review => )
+		const reviews = reviewsFromFetch["reviews"]
+		return reviews.map(review => <ReviewItem review={review} />)
 	}
 
 	fetchReviews() {
@@ -29,17 +29,10 @@ class ReviewList extends Component {
 			body: JSON.stringify({park:this.props["park"]})
 			})
 		.then(data => data.json())
-		.then((data["reviews"]) => {
-			console.log(data)
+		.then((data) => {
+			this.listDisplayReviews(data)
 		})	
 		.catch(error => console.error(error));	
-		// const reviews = new Object()
-		// const review = individualReview.individualReview
-		// const parkId = review.park_id
-		// const userId = review.user_id
-		// const numOfStars = review.num_of_stars
-		// const textReview = review.text_review
-		// console.log(parkId)
 	}
 
 	handleClick() {
@@ -47,16 +40,15 @@ class ReviewList extends Component {
 	}
 
 	renderReviews() {
+		// let listOfReviews = this.fetchReviews()
 		// let reviewList = this.state.reviews.map(reviewItem => <ReviewItem review={reviewItem} />)
 		// let reviewList = this.state.reviews.map(individualReview => {this.fetchReviews({individualReview})})
-		this.fetchReviews()
-		// if (this.state.showReviews) {
-		// 	return reviewList
-		// }
+		if (this.state.showReviews) {
+			return this.fetchReviews()
+		}
 	}
 
 	render() {
-		const {reviews, review} = this.state;
 		return (
 			<div>
 				<button onClick={this.handleClick}>
@@ -69,6 +61,5 @@ class ReviewList extends Component {
 		)
 	}
 }
-
 
 export default ReviewList;

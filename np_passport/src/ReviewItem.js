@@ -15,5 +15,4 @@ const ReviewItem = ({review}) => {
   );
 };
 
-
 export default ReviewItem;
