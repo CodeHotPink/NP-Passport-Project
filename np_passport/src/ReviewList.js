@@ -14,7 +14,11 @@ class ReviewList extends Component {
 		this.handleClick = this.handleClick.bind(this)
 	} 
 
-	sortsReviews() {
+	listDisplayReviews(reviewsFromFetch) {
+		reviewsFromFetch.map(review => )
+	}
+
+	fetchReviews() {
 		fetch("http://localhost:5000/display_park_reviews", {
 			method: "POST",
 			mode: "cors",
@@ -25,7 +29,7 @@ class ReviewList extends Component {
 			body: JSON.stringify({park:this.props["park"]})
 			})
 		.then(data => data.json())
-		.then((data) => {
+		.then((data["reviews"]) => {
 			console.log(data)
 		})	
 		.catch(error => console.error(error));	
@@ -44,8 +48,8 @@ class ReviewList extends Component {
 
 	renderReviews() {
 		// let reviewList = this.state.reviews.map(reviewItem => <ReviewItem review={reviewItem} />)
-		// let reviewList = this.state.reviews.map(individualReview => {this.sortsReviews({individualReview})})
-		this.sortsReviews()
+		// let reviewList = this.state.reviews.map(individualReview => {this.fetchReviews({individualReview})})
+		this.fetchReviews()
 		// if (this.state.showReviews) {
 		// 	return reviewList
 		// }
