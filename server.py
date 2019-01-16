@@ -9,6 +9,18 @@ cors = CORS(app, resources={r"/*": { r"supports_credentials":True, r"origins": r
 
 app.secret_key = "Don't go without your passport!"
 
+def to_json(review_list):
+		"""returning dictionary of object"""
+		json_reviews = {"reviews":[]}
+		for individual_review in review_list:
+			review = {"parkId":individual_review.park_id,
+						"userId":individual_review.user_id,
+						"numOfStars":individual_review.num_of_stars,
+						"textReview":individual_review.text_review,
+						"reviewDate":individual_review.review_date}
+			json_reviews["reviews"].append(review)
+		return json_reviews
+
 @app.after_request
 def after(response):
   """Adds headers to all responses to satisfy CORS."""
@@ -31,12 +43,12 @@ def display_park_reviews():
 	print(f"this is the data coming from request: {data}")
 	print(data["park"])
 	full_name = data["park"]
-	q = Review.query.filter(Park.park_name == full_name).first()
-	print(q)
-	q = q.to_json()
+	park = Park.query.filter(Park.park_name == full_name).first()
+	park_id = park.park_id
+	q = Review.query.filter(Park.park_id == 1).all()
+	print(type(q))
+	q = to_json(q)
 	print(f"this is after 'to_json()' function: {q}")
-	# stars = q.num_of_stars
-	# print(stars)
 	return jsonify(q)
 
 # Working version of route!
