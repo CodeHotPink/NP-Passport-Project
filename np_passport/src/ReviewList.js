@@ -16,12 +16,14 @@ class ReviewList extends Component {
 
 	sortsReviews() {
 		let url = new URL("http://localhost:5000/display_park_reviews"),
-			params = {park:this.props['park']}
-		Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+			params = {park:this.props["park"]};
+		Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+		url = url['href'];
+		String(url);
 		fetch({url}, {
 			method: "GET",
 			mode: "cors",
-			credentials: 'include',
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/database"
 			}

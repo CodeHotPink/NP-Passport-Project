@@ -22,10 +22,11 @@ def index():
 	welcome = "Hi there" 
 	return jsonify(welcome)
 
-@app.route('/display_park_reviews', methods=['GET'])
+@app.route('/display_park_reviews/<path:subpath>', methods=['GET'])
 @cross_origin()
-def display_park_reviews():
+def display_park_reviews(subpath):
 	"""Given a park's ID, it will return all reviews for that park"""
+	parkName = subpath
 	data = request.get_json()
 	print(f"this is the data coming from request: {data}")
 	q = Review.query.filter(Review.park_id == 1).one()
@@ -34,6 +35,17 @@ def display_park_reviews():
 	# print(stars)
 	return jsonify(q)
 
+@app.route('/log_in', methods=['POST'])
+@cross_origin()
+def display_park_reviews():
+	"""Checks username & password for log in"""
+	data = request.get_json()
+	print(f"this is the data coming from request: {data}")
+	q = User.query.filter(User.park_id == 1).one()
+	print(q)
+	# stars = q.num_of_stars
+	# print(stars)
+	return jsonify(q)
 
 if __name__ == "__main__":
 	# connect_to_db(app)
