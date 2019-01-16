@@ -45,7 +45,7 @@ def display_park_reviews():
 	full_name = data["park"]
 	park = Park.query.filter(Park.park_name == full_name).first()
 	park_id = park.park_id
-	q = Review.query.filter(Park.park_id == 1).all()
+	q = Review.query.join(Review.park).filter(Park.park_id == park_id).all()
 	print(type(q))
 	q = to_json(q)
 	print(f"this is after 'to_json()' function: {q}")
