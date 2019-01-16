@@ -9,8 +9,8 @@ cors = CORS(app, resources={r"/*": { r"supports_credentials":True, r"origins": r
 
 app.secret_key = "Don't go without your passport!"
 
-def to_json(review_list):
-		"""returning dictionary of object"""
+def list_to_json(review_list):
+		"""Converting list obtained from query into json object."""
 		json_reviews = {"reviews":[]}
 		for individual_review in review_list:
 			review = {"parkId":individual_review.park_id,
@@ -37,19 +37,14 @@ def index():
 @app.route('/display_park_reviews', methods=['POST'])
 @cross_origin()
 def display_park_reviews():
-	"""Given a park's ID, it will return all reviews for that park"""
+	"""Given a park's name from site, it will return all reviews for that park"""
 	data = request.get_json()
-	print(type(data))
-	print(f"this is the data coming from request: {data}")
-	print(data["park"])
 	full_name = data["park"]
 	park = Park.query.filter(Park.park_name == full_name).first()
 	park_id = park.park_id
-	q = Review.query.join(Review.park).filter(Park.park_id == park_id).all()
-	print(type(q))
-	q = to_json(q)
-	print(f"this is after 'to_json()' function: {q}")
-	return jsonify(q)
+	list_of_reviews = Review.query.join(Review.park).filter(Park.park_id == park_id).all()
+	reviews = list_to_json(list_of_reviews)
+	return jsonify(reviews)
 
 # Working version of route!
 # @app.route('/display_park_reviews', methods=['GET'])
