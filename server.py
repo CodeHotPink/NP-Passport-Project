@@ -22,30 +22,48 @@ def index():
 	welcome = "Hi there" 
 	return jsonify(welcome)
 
-@app.route('/display_park_reviews/<path:subpath>', methods=['GET'])
+@app.route('/display_park_reviews', methods=['POST'])
 @cross_origin()
-def display_park_reviews(subpath):
+def display_park_reviews():
 	"""Given a park's ID, it will return all reviews for that park"""
-	parkName = subpath
 	data = request.get_json()
+	print(type(data))
 	print(f"this is the data coming from request: {data}")
-	q = Review.query.filter(Review.park_id == 1).one()
+	print(data["park"])
+	full_name = data["park"]
+	q = Review.query.filter(Park.park_name == full_name).first()
 	print(q)
+	q = q.to_json()
+	print(f"this is after 'to_json()' function: {q}")
 	# stars = q.num_of_stars
 	# print(stars)
 	return jsonify(q)
 
-@app.route('/log_in', methods=['POST'])
-@cross_origin()
-def display_park_reviews():
-	"""Checks username & password for log in"""
-	data = request.get_json()
-	print(f"this is the data coming from request: {data}")
-	q = User.query.filter(User.park_id == 1).one()
-	print(q)
-	# stars = q.num_of_stars
-	# print(stars)
-	return jsonify(q)
+# Working version of route!
+# @app.route('/display_park_reviews', methods=['GET'])
+# @cross_origin()
+# def display_park_reviews():
+# 	"""Given a park's ID, it will return all reviews for that park"""
+# 	data = request.get_json()
+# 	print(f"this is the data coming from request: {data}")
+# 	q = Review.query.filter(Review.park_id == 1).first()
+# 	print(q)
+# 	q = q.to_json()
+# 	# stars = q.num_of_stars
+# 	# print(stars)
+# 	return jsonify(q)
+
+# @app.route('/log_in', methods=['POST'])
+# @cross_origin()
+# def display_park_reviews():
+# 	"""Checks email & password for log in"""
+# 	data = request.get_json()
+# 	print(f"this is the data coming from request: {data}")
+# 	q = User.query.filter(User.email == 1).one()
+# 	print(q)
+# 	# stars = q.num_of_stars
+# 	# print(stars)
+# 	return jsonify(q)
 
 if __name__ == "__main__":
 	# connect_to_db(app)

@@ -122,6 +122,11 @@ class Review(db.Model):
 	park = db.relationship("Park", backref="reviews")
 	user = db.relationship("User", backref="reviews")
 
+	def to_json(self):
+		"""returning dictionary of object"""
+		rand_object = {"id":self.park_id,
+						"text_review":self.text_review}
+		return rand_object
 	def __repr__(self):
 		""" Review display """
 		return(f"User {self.user_id} gave park {self.park_id} {self.num_of_stars}/5 stars on {self.review_date}.")
