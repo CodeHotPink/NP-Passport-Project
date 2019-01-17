@@ -15,11 +15,11 @@ const ParkItem = ({park}) => {
     <div>
       {parkName}<br />
       <img src={image} alt={imageAlt} height='100' width='100' /><br />
-      Put # of stars<ReviewList park = {parkName}/>
       <a href ='{parkName} Website' /><br /> 
       {address}<br />
       {city}, {state} {zipCode}<br />
       {phoneNumber}<br />
+      Put # of stars<ReviewList park = {parkName}/>
     </div>
   );
 };
