@@ -46,12 +46,12 @@ def display_park_reviews():
 	reviews = list_to_json(list_of_reviews)
 	return jsonify(reviews)
 
-# @app.route('/log_in', methods=['POST'])
-# @cross_origin()
-# def display_park_reviews():
-# 	"""Checks email & password for log in"""
-# 	data = request.get_json()
-# 	print(f"this is the data coming from request: {data}")
+@app.route('/log_in', methods=['POST'])
+@cross_origin()
+def user_log_in():
+	"""Checks email & password for log in"""
+	data = request.get_json()
+	print(f"this is the data coming from request: {data}")
 # 	q = User.query.filter(User.email == 1).one()
 # 	print(q)
 # 	# stars = q.num_of_stars

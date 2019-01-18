@@ -4,11 +4,10 @@ import './App.css';
 import LoginForm from './loginForm';
 import ParkList from './ParkList';
 import ReviewList from './ReviewList';
+import loginForm from './loginForm'
 
 
 class App extends Component {
-
-
 
   render() {
     return (
@@ -18,6 +17,7 @@ class App extends Component {
             National Parks Passport
           </nav>
         </header>
+        <loginForm />
         <ParkList />
       </div>
     );
