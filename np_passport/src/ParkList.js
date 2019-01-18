@@ -39,6 +39,6 @@ class ParkList extends Component {
 		)
 	}
 }
-// 4 columns total: column 1(Need photo on left), column 2((average number of stars, button for view website), column 3(address) & column 4(google map display)
+
 
 export default ParkList;

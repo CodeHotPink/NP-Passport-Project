@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css'; 
-import LoginForm from './loginForm';
 import ParkList from './ParkList';
-import ReviewList from './ReviewList';
 import loginForm from './loginForm'
 
 
