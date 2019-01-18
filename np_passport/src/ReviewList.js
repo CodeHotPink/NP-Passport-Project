@@ -5,7 +5,8 @@ class ReviewList extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			showReviews: false
+			showReviews: false,
+			reviews: undefined
 		}
 		this.renderReviews = this.renderReviews.bind(this)
 		this.handleClick = this.handleClick.bind(this)
@@ -13,9 +14,13 @@ class ReviewList extends Component {
 		this.fetchReviews = this.fetchReviews.bind(this)
 	} 
 
-	listDisplayReviews(reviewsFromFetch) {
-		const reviews = reviewsFromFetch["reviews"]
-		return reviews.map(review => <ReviewItem review={review} />)
+	componentDidMount() {
+		this.fetchReviews()
+	}
+
+	listDisplayReviews() {
+		console.log(this.state.reviews)
+		return this.state.reviews["reviews"].map(review => <ReviewItem review={review} />)
 	}
 
 	fetchReviews() {
@@ -30,7 +35,7 @@ class ReviewList extends Component {
 			})
 		.then(data => data.json())
 		.then((data) => {
-			this.listDisplayReviews(data)
+			this.setState({reviews: data})
 		})	
 		.catch(error => console.error(error));	
 	}
@@ -40,11 +45,12 @@ class ReviewList extends Component {
 	}
 
 	renderReviews() {
-		let listOfReviews = this.fetchReviews()
 		// let reviewList = this.state.reviews.map(reviewItem => <ReviewItem review={reviewItem} />)
 		// let reviewList = this.state.reviews.map(individualReview => {this.fetchReviews({individualReview})})
-		if (this.state.showReviews) {
-			return this.listOfReviews
+		if (this.state.showReviews && this.state.reviews) {
+			return this.listDisplayReviews()
+		} else if (this.state.showReviews) {
+			return (<div>Loading ...</div>)
 		}
 	}
 

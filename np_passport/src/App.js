@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css'; 
 import ParkList from './ParkList';
-import loginForm from './loginForm'
+import LoginForm from './LoginForm'
 
 
 class App extends Component {
@@ -15,7 +15,7 @@ class App extends Component {
             National Parks Passport
           </nav>
         </header>
-        <loginForm />
+        <LoginForm />
         <ParkList />
       </div>
     );
