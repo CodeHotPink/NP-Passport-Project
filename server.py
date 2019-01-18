@@ -46,20 +46,6 @@ def display_park_reviews():
 	reviews = list_to_json(list_of_reviews)
 	return jsonify(reviews)
 
-# Working version of route!
-# @app.route('/display_park_reviews', methods=['GET'])
-# @cross_origin()
-# def display_park_reviews():
-# 	"""Given a park's ID, it will return all reviews for that park"""
-# 	data = request.get_json()
-# 	print(f"this is the data coming from request: {data}")
-# 	q = Review.query.filter(Review.park_id == 1).first()
-# 	print(q)
-# 	q = q.to_json()
-# 	# stars = q.num_of_stars
-# 	# print(stars)
-# 	return jsonify(q)
-
 # @app.route('/log_in', methods=['POST'])
 # @cross_origin()
 # def display_park_reviews():

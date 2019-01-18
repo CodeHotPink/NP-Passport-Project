@@ -40,11 +40,11 @@ class ReviewList extends Component {
 	}
 
 	renderReviews() {
-		// let listOfReviews = this.fetchReviews()
+		let listOfReviews = this.fetchReviews()
 		// let reviewList = this.state.reviews.map(reviewItem => <ReviewItem review={reviewItem} />)
 		// let reviewList = this.state.reviews.map(individualReview => {this.fetchReviews({individualReview})})
 		if (this.state.showReviews) {
-			return this.fetchReviews()
+			return this.listOfReviews
 		}
 	}
 
@@ -54,9 +54,7 @@ class ReviewList extends Component {
 				<button onClick={this.handleClick}>
 					View all reviews
 				</button>
-				<div>
-					{this.renderReviews()}
-				</div>
+				{this.renderReviews()}
 			</div>
 		)
 	}
