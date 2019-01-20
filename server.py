@@ -46,17 +46,27 @@ def display_park_reviews():
 	reviews = list_to_json(list_of_reviews)
 	return jsonify(reviews)
 
-@app.route('/log_in', methods=['POST'])
+@app.route('/user_log_in', methods=['POST'])
 @cross_origin()
 def user_log_in():
 	"""Checks email & password for log in"""
 	data = request.get_json()
-	print(f"this is the data coming from request: {data}")
-# 	q = User.query.filter(User.email == 1).one()
+	email = User.query.filter(User.email == data["email"])
+	password = User.query.filter(User.password == data["password"])
+	if email.count() == 0:
+		return("User is not in system, please check email or register")
+	else:
+		if password.count() == 0:
+			return("Password is incorrect, please check password")
+		else:
+			return("Successfully logged in")
+	# r = User.query.filter(User.email == password).one()
+	# print(r)
 # 	print(q)
 # 	# stars = q.num_of_stars
 # 	# print(stars)
 # 	return jsonify(q)
+# 	
 
 if __name__ == "__main__":
 	# connect_to_db(app)
