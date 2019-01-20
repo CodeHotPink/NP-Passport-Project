@@ -10,7 +10,7 @@ cors = CORS(app, resources={r"/*": { r"supports_credentials":True, r"origins": r
 app.secret_key = "Don't go without your passport!"
 
 def review_list_to_json(review_list):
-		"""Converting list obtained from query into json object."""
+		"""Converting review list obtained from query into json object."""
 		json_reviews = {"reviews":[]}
 		for individual_review in review_list:
 			review = {"parkId":individual_review.park_id,
@@ -21,17 +21,15 @@ def review_list_to_json(review_list):
 			json_reviews["reviews"].append(review)
 		return json_reviews
 
-# def review_list_to_json(review_list):
-# 		"""Converting list obtained from query into json object."""
-# 		json_reviews = {"reviews":[]}
-# 		for individual_review in review_list:
-# 			review = {"parkId":individual_review.park_id,
-# 						"userId":individual_review.user_id,
-# 						"numOfStars":individual_review.num_of_stars,
-# 						"textReview":individual_review.text_review,
-# 						"reviewDate":individual_review.review_date}
-# 			json_reviews["reviews"].append(review)
-# 		return json_reviews
+def visit_list_to_json(visit_list):
+		"""Converting visit list obtained from query into json object."""
+		json_visits = {"visits":[]}
+		for individual_visit in visit_list:
+			visit = {"parkId":individual_visit.park_id,
+						"userId":individual_visit.user_id,
+						"visitDate":individual_visit.visit_date}
+			json_visits["visits"].append(visit)
+		return json_visits
 
 @app.after_request
 def after(response):
@@ -73,16 +71,21 @@ def user_log_in():
 		else:
 			return jsonify({"message": "Successfully logged in"})
 
-# @app.route('/display_user_visits', methods=['POST'])
-# @cross_origin()
-# def display_user_visits():
-# 	"""Returning all visits a user has"""
-# 	data = request.get_json()
-# 	email = data["email"]
-# 	user_id = User.query.filter(User.email == email).first()
-# 	list_of_visits = Visit.query.filter(Visit.user_id == user_id).all()
-# 	visits = list_to_json(list_of_reviews)
-# 	return jsonify(reviews)
+@app.route('/display_user_visits', methods=['POST'])
+@cross_origin()
+def display_user_visits():
+	"""Returning all visits a user has"""
+	data = request.get_json()
+	email = data["email"]
+	user_id = User.query.filter(User.email == email).first()
+	print(f"this is what comes from the query: {user_id}")
+	user_id = user_id.user_id
+	print(f"this is after keying into user_id: {user_id}")
+	list_of_visits = Visit.query.filter(Visit.user_id == user_id).all()
+	print(type(list_of_visits))
+	print(f"this is list_of_visits {list_of_visits}")
+	visits = visit_list_to_json(list_of_visits)
+	return jsonify(visits)
 
 if __name__ == "__main__":
 	# connect_to_db(app)

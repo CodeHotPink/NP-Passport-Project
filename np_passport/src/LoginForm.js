@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import VisitList from './VisitList';
 
 class LoginForm extends Component {
 	constructor(props){
@@ -42,11 +43,8 @@ class LoginForm extends Component {
         this.setState({message: data["message"]})
         if (this.state.message === "Successfully logged in") {
             this.setState({login: true})
-            alert(this.state.message)
         }
-        else{
-            alert(this.state.message)
-        }
+        alert(this.state.message)
     })	
 	.catch(error => console.error(error));	
 	}
@@ -74,6 +72,7 @@ class LoginForm extends Component {
                     <button onClick={this.logOutButton}>
                         Log out
                     </button>
+                    <VisitList email={this.state.email} />
                 </div>
             )
         }
