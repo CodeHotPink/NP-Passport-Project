@@ -42,8 +42,11 @@ class LoginForm extends Component {
         this.setState({message: data["message"]})
         if (this.state.message === "Successfully logged in") {
             this.setState({login: true})
+            alert(this.state.message)
         }
-        console.log(this.state.login)
+        else{
+            alert(this.state.message)
+        }
     })	
 	.catch(error => console.error(error));	
 	}
