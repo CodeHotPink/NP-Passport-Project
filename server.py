@@ -54,12 +54,12 @@ def user_log_in():
 	email = User.query.filter(User.email == data["email"])
 	password = User.query.filter(User.password == data["password"])
 	if email.count() == 0:
-		return("User is not in system, please check email or register")
+		return jsonify({"message": "User is not in system, please check email or register"})
 	else:
 		if password.count() == 0:
-			return("Password is incorrect, please check password")
+			return jsonify({"message": "Password is incorrect, please check password"})
 		else:
-			return("Successfully logged in")
+			return jsonify({"message": "Successfully logged in"})
 	# r = User.query.filter(User.email == password).one()
 	# print(r)
 # 	print(q)

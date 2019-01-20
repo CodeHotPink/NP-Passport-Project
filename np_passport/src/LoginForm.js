@@ -39,6 +39,7 @@ class LoginForm extends Component {
         body: JSON.stringify({email:this.state.email,
                             password:this.state.password},)
         })
+    .then(data => data.json())
     .then((data) => {
         console.log(data)
     })	
