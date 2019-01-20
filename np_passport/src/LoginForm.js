@@ -6,8 +6,10 @@ class LoginForm extends Component {
 		this.state = {
             login: false,
             email: "",
-            password: ""
-		}
+            password: "",
+            message: ""
+        }
+        this.userOrGuest = this.userOrGuest.bind(this)
 		this.loginForm = this.loginForm.bind(this)
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
@@ -15,11 +17,6 @@ class LoginForm extends Component {
   } 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(`this is before we reset state: ${this.state.login}`)
-    console.log(this.state.email)
-    console.log(this.state.password)
-    this.setState({login: !this.state.login})
-    console.log(this.state.login)
     this.userLogIn()
   }
   handleEmailChange(event) {
@@ -41,9 +38,13 @@ class LoginForm extends Component {
         })
     .then(data => data.json())
     .then((data) => {
-        console.log(data)
+        this.setState({message: data["message"]})
+        if (this.state.message === "Successfully logged in") {
+            this.setState({login: true})
+        }
+        console.log(this.state.login)
     })	
-		.catch(error => console.error(error));	
+	.catch(error => console.error(error));	
 	}
 
     loginForm() {
@@ -62,10 +63,27 @@ class LoginForm extends Component {
         )
     }
 
+    userOrGuest() {
+        if (this.state.login === true){
+            return (
+                <div>
+                    this is where I put users info
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    {this.loginForm()}
+                </div>
+            )
+        }
+    }
+
 	render() {
 		return (
 			<div>
-               {this.loginForm()}
+               {this.userOrGuest()}
 			</div>
 		)
 	}
