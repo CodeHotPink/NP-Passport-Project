@@ -14,6 +14,7 @@ class LoginForm extends Component {
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.logOutButton = this.logOutButton.bind(this)
   } 
   handleSubmit(event) {
     event.preventDefault();
@@ -67,7 +68,9 @@ class LoginForm extends Component {
         if (this.state.login === true){
             return (
                 <div>
-                    this is where I put users info
+                    <button onClick={this.logOutButton}>
+                        Log out
+                    </button>
                 </div>
             )
         }
@@ -78,6 +81,10 @@ class LoginForm extends Component {
                 </div>
             )
         }
+    }
+
+    logOutButton() {
+        this.setState({login: false})        
     }
 
 	render() {
