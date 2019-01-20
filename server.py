@@ -9,7 +9,7 @@ cors = CORS(app, resources={r"/*": { r"supports_credentials":True, r"origins": r
 
 app.secret_key = "Don't go without your passport!"
 
-def list_to_json(review_list):
+def review_list_to_json(review_list):
 		"""Converting list obtained from query into json object."""
 		json_reviews = {"reviews":[]}
 		for individual_review in review_list:
@@ -20,6 +20,18 @@ def list_to_json(review_list):
 						"reviewDate":individual_review.review_date}
 			json_reviews["reviews"].append(review)
 		return json_reviews
+
+# def review_list_to_json(review_list):
+# 		"""Converting list obtained from query into json object."""
+# 		json_reviews = {"reviews":[]}
+# 		for individual_review in review_list:
+# 			review = {"parkId":individual_review.park_id,
+# 						"userId":individual_review.user_id,
+# 						"numOfStars":individual_review.num_of_stars,
+# 						"textReview":individual_review.text_review,
+# 						"reviewDate":individual_review.review_date}
+# 			json_reviews["reviews"].append(review)
+# 		return json_reviews
 
 @app.after_request
 def after(response):
@@ -43,7 +55,7 @@ def display_park_reviews():
 	park = Park.query.filter(Park.park_name == full_name).first()
 	park_id = park.park_id
 	list_of_reviews = Review.query.join(Review.park).filter(Park.park_id == park_id).all()
-	reviews = list_to_json(list_of_reviews)
+	reviews = review_list_to_json(list_of_reviews)
 	return jsonify(reviews)
 
 @app.route('/user_log_in', methods=['POST'])
@@ -66,11 +78,10 @@ def user_log_in():
 # def display_user_visits():
 # 	"""Returning all visits a user has"""
 # 	data = request.get_json()
-# 	full_name = data["park"]
-# 	park = Park.query.filter(Park.park_name == full_name).first()
-# 	park_id = park.park_id
-# 	list_of_reviews = Review.query.join(Review.park).filter(Park.park_id == park_id).all()
-# 	reviews = list_to_json(list_of_reviews)
+# 	email = data["email"]
+# 	user_id = User.query.filter(User.email == email).first()
+# 	list_of_visits = Visit.query.filter(Visit.user_id == user_id).all()
+# 	visits = list_to_json(list_of_reviews)
 # 	return jsonify(reviews)
 
 if __name__ == "__main__":

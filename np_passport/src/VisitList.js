@@ -31,7 +31,7 @@ class VisitList extends Component {
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body: JSON.stringify({park:this.props["park"]})
+			body: JSON.stringify({email:this.props["email"]})
 			})
 		.then(data => data.json())
 		.then((data) => {
@@ -40,12 +40,8 @@ class VisitList extends Component {
 		.catch(error => console.error(error));	
 	}
 
-	handleClick() {
-		this.setState({showVisits: !this.state.showVisits})
-	}
-
 	renderVisits() {
-		if (this.state.showVisits && this.state.visits) {
+		if (this.state.visits) {
 			return this.listDisplayVisits()
 		} else if (this.state.showVisits) {
 			return (<div>Loading ...</div>)
@@ -55,9 +51,6 @@ class VisitList extends Component {
 	render() {
 		return (
 			<div>
-				<button onClick={this.handleClick}>
-					View all visits
-				</button>
 				{this.renderVisits()}
 			</div>
 		)
