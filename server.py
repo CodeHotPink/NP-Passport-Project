@@ -60,13 +60,18 @@ def user_log_in():
 			return jsonify({"message": "Password is incorrect, please check password"})
 		else:
 			return jsonify({"message": "Successfully logged in"})
-	# r = User.query.filter(User.email == password).one()
-	# print(r)
-# 	print(q)
-# 	# stars = q.num_of_stars
-# 	# print(stars)
-# 	return jsonify(q)
-# 	
+
+# @app.route('/display_user_visits', methods=['POST'])
+# @cross_origin()
+# def display_user_visits():
+# 	"""Returning all visits a user has"""
+# 	data = request.get_json()
+# 	full_name = data["park"]
+# 	park = Park.query.filter(Park.park_name == full_name).first()
+# 	park_id = park.park_id
+# 	list_of_reviews = Review.query.join(Review.park).filter(Park.park_id == park_id).all()
+# 	reviews = list_to_json(list_of_reviews)
+# 	return jsonify(reviews)
 
 if __name__ == "__main__":
 	# connect_to_db(app)
