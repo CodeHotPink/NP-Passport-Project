@@ -84,8 +84,13 @@ def display_user_visits():
 	list_of_visits = Visit.query.filter(Visit.user_id == user_id).all()
 	print(type(list_of_visits))
 	print(f"this is list_of_visits {list_of_visits}")
-	visits = visit_list_to_json(list_of_visits)
-	return jsonify(visits)
+	if list_of_visits:
+		visits = visit_list_to_json(list_of_visits)
+		return jsonify(visits)
+	else:
+		return jsonify({"userId":user_id})
+
+	
 
 if __name__ == "__main__":
 	# connect_to_db(app)

@@ -11,11 +11,11 @@ const ParkItem = ({park}) => {
   const phoneNumber = park['contacts']['phoneNumbers'][0]['phoneNumber']
   const website = park['url']
   const parkName = park['fullName']
+  const parkCode = park['parkCode']
   return (
     <div>
-      {parkName}<br />
+      <td onClick={()=> window.open(`https://www.nps.gov/${parkCode}/index.htm`, "_blank")}>{parkName}</td>
       <img src={image} alt={imageAlt} height='100' width='100' /><br />
-      <a href ='{parkName} Website' /><br /> 
       {address}<br />
       {city}, {state} {zipCode}<br />
       {phoneNumber}<br />
@@ -23,6 +23,5 @@ const ParkItem = ({park}) => {
     </div>
   );
 };
-// 4 columns total: column 1(Need photo on left), column 2((average number of stars, button for view website), column 3(address) & column 4(google map display)
 
 export default ParkItem;
