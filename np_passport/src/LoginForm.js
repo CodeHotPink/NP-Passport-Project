@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import VisitList from './VisitList';
+import UserRegistration from './modal/UserRegistration';
 
 class LoginForm extends Component {
 	constructor(props){
@@ -16,7 +17,6 @@ class LoginForm extends Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.logOutButton = this.logOutButton.bind(this)
-        this.registerButton = this.registerButton.bind(this)
   } 
   handleSubmit(event) {
     event.preventDefault();
@@ -66,12 +66,6 @@ class LoginForm extends Component {
         )
     }
 
-    registerButton() {
-        return(
-            hi
-        )
-    }
-
     userOrGuest() {
         if (this.state.login === true){
             return (
@@ -87,9 +81,7 @@ class LoginForm extends Component {
             return (
                 <div>
                     {this.loginForm()}
-                    <button onClick={this.registerButton}>
-                        New user? Register?
-                    </button>
+                    <UserRegistration />
                 </div>
             )
         }
