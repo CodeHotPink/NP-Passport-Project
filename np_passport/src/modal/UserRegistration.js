@@ -70,6 +70,7 @@ class UserRegistration extends Component {
         this.handlePostalChange = this.handlePostalChange.bind(this)
         this.handleUsStateChange = this.handleUsStateChange.bind(this)
         this.createOptions = this.createOptions.bind(this)
+        this.handleEmailChange = this.handleEmailChange.bind(this)
     }
     openModalHandler = () => {
         this.setState({
@@ -104,6 +105,9 @@ class UserRegistration extends Component {
     }
     handleUsStateChange(event) {
         this.setState({userState: event.target.value})
+    }
+    handleEmailChange(event) {
+        this.setState({email: event.target.value})
     }
     createOptions(arrayObject) {
         return <option> {arrayObject} </option>;
@@ -152,6 +156,10 @@ class UserRegistration extends Component {
                             <label>
                             State:
                             <select value={this.state.value} onChange={this.handleUsStateChange}>{this.state.states.map(this.createOptions)}</select>
+                            </label>
+                            <label>
+                            Email:
+                            <input type="text" maxLength="100" value={this.state.value} onChange={this.handleEmailChange} />
                             </label>
                         </form>
                 </RegistrationModal>
