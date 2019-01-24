@@ -7,7 +7,58 @@ class UserRegistration extends Component {
         this.state = {
             isShowing: false,
             gender: "na",
-            birthday: ""
+            birthday: "",
+            states: new Array("Alabama", 
+            "Alaska", 
+            "Arizona", 
+            "Arkansas", 
+            "California", 
+            "Colorado", 
+            "Connecticut", 
+            "Delaware", 
+            "Florida", 
+            "Georgia", 
+            "Hawaii", 
+            "Idaho", 
+            "Illinois", 
+            "Indiana", 
+            "Iowa", 
+            "Kansas", 
+            "Kentucky", 
+            "Louisiana", 
+            "Maine", 
+            "Maryland", 
+            "Massachusetts", 
+            "Michigan", 
+            "Minnesota", 
+            "Mississippi", 
+            "Missouri", 
+            "Montana", 
+            "Nebraska", 
+            "Nevada", 
+            "New Hampshire", 
+            "New Jersey", 
+            "New Mexico", 
+            "New York", 
+            "North Carolina", 
+            "North Dakota", 
+            "Ohio", 
+            "Oklahoma", 
+            "Oregon", 
+            "Pennsylvania", 
+            "Rhode Island", 
+            "South Carolina", 
+            "South Dakota", 
+            "Tennessee", 
+            "Texas", 
+            "Utah", 
+            "Vermont", 
+            "Virginia", 
+            "Washington", 
+            "West Virginia", 
+            "Wisconsin", 
+            "Wyoming"),
+            userState: ""
         }
         this.openModalHandler = this.openModalHandler.bind(this)
         this.closeModalHandler = this.closeModalHandler.bind(this)
@@ -17,6 +68,8 @@ class UserRegistration extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleBirthdayChange = this.handleBirthdayChange.bind(this)
         this.handlePostalChange = this.handlePostalChange.bind(this)
+        this.handleUsStateChange = this.handleUsStateChange.bind(this)
+        this.createOptions = this.createOptions.bind(this)
     }
     openModalHandler = () => {
         this.setState({
@@ -48,6 +101,12 @@ class UserRegistration extends Component {
     }
     handlePostalChange(event) {
         this.setState({postal: event.target.value})
+    }
+    handleUsStateChange(event) {
+        this.setState({userState: event.target.value})
+    }
+    createOptions(arrayObject) {
+        return <option> {arrayObject} </option>;
     }
     render () {
         return (
@@ -85,6 +144,14 @@ class UserRegistration extends Component {
                             <label>
                             Postal Code:
                             <input type="text" maxlength="5" value={this.state.value} onChange={this.handlePostalChange} />
+                            </label>
+                            <label>
+                            Postal Code:
+                            <input type="text" maxlength="5" value={this.state.value} onChange={this.handlePostalChange} />
+                            </label>
+                            <label>
+                            State:
+                            <select value={this.state.value} onChange={this.handleUsStateChange}>{this.state.states.map(this.createOptions)}</select>
                             </label>
                         </form>
                 </RegistrationModal>
