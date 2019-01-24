@@ -7,7 +7,7 @@ class UserRegistration extends Component {
         this.state = {
             isShowing: false,
             gender: "na",
-            startDate: new Date()
+            birthday: ""
         }
         this.openModalHandler = this.openModalHandler.bind(this)
         this.closeModalHandler = this.closeModalHandler.bind(this)
@@ -41,12 +41,9 @@ class UserRegistration extends Component {
       }
     handleGenderChange(event) {
         this.setState({gender: event.target.value})
-        console.log(this.state.gender)
     }
     handleBirthdayChange(event) {
         this.setState({birthday: event.target.value})
-        console.log(this.state.birthday)
-        console.log(typeof(this.state.birthday))
     }
     render () {
         return (
