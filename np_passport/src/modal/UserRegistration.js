@@ -151,14 +151,14 @@ class UserRegistration extends Component {
         })  
     }
     clearRegistrationForm() {
-        this.setState({first: "",
-                    last: "",
-                    gender: "",
-                    birthday: "",
-                    postal: "",
-                    userState: "",
-                    email: "",
-                    password: ""})
+        this.setState({first: ""})
+        this.setState({last: ""})
+        this.setState({gender: ""})
+        this.setState({birthday: ""})
+        this.setState({postal: ""})
+        this.setState({userState: ""})
+        this.setState({email: ""})
+        this.setState({password: ""})
     }
     createOptions(arrayObject) {
         return <option> {arrayObject} </option>;
