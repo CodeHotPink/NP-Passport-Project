@@ -65,7 +65,7 @@ class UserRegistration extends Component {
         this.handleFirstChange = this.handleFirstChange.bind(this)
         this.handleLastChange = this.handleLastChange.bind(this)
         this.handleGenderChange = this.handleGenderChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleRegister = this.handleRegister.bind(this)
         this.handleBirthdayChange = this.handleBirthdayChange.bind(this)
         this.handlePostalChange = this.handlePostalChange.bind(this)
         this.handleUsStateChange = this.handleUsStateChange.bind(this)
@@ -83,10 +83,9 @@ class UserRegistration extends Component {
             isShowing: false
         });
     }
-    handleSubmit(event) {
+    handleRegister(event) {
         event.preventDefault();
-        console.log(this.state.gender)
-        console.log(this.state.last)
+        console.log(this.state)
       }
     handleFirstChange(event) {
         this.setState({first: event.target.value})
@@ -126,7 +125,8 @@ class UserRegistration extends Component {
                 <RegistrationModal
                     className="modal"
                     show={this.state.isShowing}
-                    close={this.closeModalHandler}>
+                    close={this.closeModalHandler}
+                    register={this.handleRegister}>
                         <form onSubmit={this.handleSubmit}>
                             <label>
                             First Name:
@@ -148,10 +148,6 @@ class UserRegistration extends Component {
                             <label>
                             Birthday:
                             <input type="date" name="birthday" min="1900-01-01" max="2006-01-01" value={this.state.value} onChange={this.handleBirthdayChange}/>
-                            </label>
-                            <label>
-                            Postal Code:
-                            <input type="text" maxlength="5" value={this.state.value} onChange={this.handlePostalChange} />
                             </label>
                             <label>
                             Postal Code:
