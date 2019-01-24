@@ -6,8 +6,7 @@ class UserRegistration extends Component {
         super(props);
         this.state = {
             isShowing: false,
-            gender: "na",
-            birthday: "",
+            type: "password",
             states: new Array("Alabama", 
             "Alaska", 
             "Arizona", 
@@ -57,8 +56,7 @@ class UserRegistration extends Component {
             "Washington", 
             "West Virginia", 
             "Wisconsin", 
-            "Wyoming"),
-            userState: ""
+            "Wyoming")
         }
         this.openModalHandler = this.openModalHandler.bind(this)
         this.closeModalHandler = this.closeModalHandler.bind(this)
@@ -73,6 +71,7 @@ class UserRegistration extends Component {
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.registerUser = this.registerUser.bind(this)
+        this.showHide = this.showHide.bind(this)
         this.clearRegistrationForm = this.clearRegistrationForm.bind(this)
     }
     openModalHandler = () => {
@@ -144,6 +143,13 @@ class UserRegistration extends Component {
     handlePasswordChange(event) {
         this.setState({password: event.target.value})
     }
+    showHide(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.setState({
+            type: this.state.type === 'password' ? 'text' : 'password'
+        })  
+    }
     clearRegistrationForm() {
         this.setState({first: "",
                     last: "",
@@ -205,7 +211,7 @@ class UserRegistration extends Component {
                             </label>
                             <label>
                             Password:
-                            <input type="text" maxLength="100" value={this.state.value} onChange={this.handlePasswordChange} />
+                            <input type={this.state.type} maxLength="100" value={this.state.value} onChange={this.handlePasswordChange} /><span className="password__show" onClick={this.showHide}>{this.state.type === 'password' ? 'Show' : 'Hide'}</span>
                             </label>
                         </form>
                 </RegistrationModal>

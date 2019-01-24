@@ -9,7 +9,8 @@ class LoginForm extends Component {
             login: false,
             email: "",
             password: "",
-            message: ""
+            message: "",
+            type: "password"
         }
         this.userOrGuest = this.userOrGuest.bind(this)
 		this.loginForm = this.loginForm.bind(this)
@@ -17,6 +18,7 @@ class LoginForm extends Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.logOutButton = this.logOutButton.bind(this)
+        this.showHide = this.showHide.bind(this)
   } 
   handleSubmit(event) {
     event.preventDefault();
@@ -27,6 +29,13 @@ class LoginForm extends Component {
   }
   handlePasswordChange(event) {
     this.setState({password: event.target.value})
+  }
+  showHide(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.setState({
+        type: this.state.type === 'password' ? 'text' : 'password'
+    })  
   }
   userLogIn() {
     fetch("http://localhost:5000/user_log_in", {
@@ -59,9 +68,11 @@ class LoginForm extends Component {
                 </label>
                 <label>
                 Password:
-                <input type="text" value={this.state.value} onChange={this.handlePasswordChange} />
+                <input type={this.state.type} value={this.state.value} onChange={this.handlePasswordChange} />
+                <span className="password__show" onClick={this.showHide}>{this.state.type === 'password' ? 'Show' : 'Hide'}</span>
                 </label>
-                <input type="submit" value="Submit" />
+                <br />
+                <input type="submit" value="Log In" />
             </form>
         )
     }

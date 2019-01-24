@@ -23,6 +23,28 @@
   color: #61dafb;
 }
 
+.password{
+  display: block;
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+  width: 100%;
+  color: $secondary;
+}
+  &__show{
+    cursor: pointer;
+    position: absolute;
+    bottom: 11px;
+    height: 16px;
+    right: 0;
+    background: $secondary;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: .8em;
+  }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
