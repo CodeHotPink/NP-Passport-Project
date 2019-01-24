@@ -73,6 +73,7 @@ class UserRegistration extends Component {
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.registerUser = this.registerUser.bind(this)
+        this.clearRegistrationForm = this.clearRegistrationForm.bind(this)
     }
     openModalHandler = () => {
         this.setState({
@@ -87,7 +88,6 @@ class UserRegistration extends Component {
     handleRegister(event) {
         event.preventDefault();
         this.registerUser()
-        this.closeModalHandler()
         }
     registerUser() {
         fetch("http://localhost:5000/register_user", {
@@ -109,7 +109,14 @@ class UserRegistration extends Component {
         .then(data => data.json())
         .then((data) => {
             console.log("it hit the server")
-            alert(data["message"])
+            if (data["newRegistration"] === 'false') {
+                alert(data["message"])
+            }
+            else {
+                alert(data["message"])
+                this.clearRegistrationForm()
+                this.closeModalHandler()
+            }
         })	
         .catch(error => console.error(error));	
         }
@@ -136,6 +143,16 @@ class UserRegistration extends Component {
     }
     handlePasswordChange(event) {
         this.setState({password: event.target.value})
+    }
+    clearRegistrationForm() {
+        this.setState({first: "",
+                    last: "",
+                    gender: "",
+                    birthday: "",
+                    postal: "",
+                    userState: "",
+                    email: "",
+                    password: ""})
     }
     createOptions(arrayObject) {
         return <option> {arrayObject} </option>;

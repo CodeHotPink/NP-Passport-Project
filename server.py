@@ -138,7 +138,8 @@ def register_user():
 	query_email = User.query.filter(User.email == email)
 	if query_email.count() > 0:
 		message = f"{email} is already registered."
-		return jsonify({"message": message})
+		return jsonify({"message": message,
+						"newRegistration": "false"})
 	else:
 		db_user = User(first_name=first,
 					last_name=last,
@@ -151,7 +152,8 @@ def register_user():
 		db.session.add(db_user)
 		db.session.commit()
 		message = f"{db_user.first_name} {db_user.last_name} has been successfully registered"
-		return jsonify({"message": message})
+		return jsonify({"message": message,
+						"newRegistration": "true"})
 
 @app.route('/display_user_visits', methods=['POST'])
 @cross_origin()
