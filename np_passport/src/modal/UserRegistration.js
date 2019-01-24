@@ -72,6 +72,7 @@ class UserRegistration extends Component {
         this.createOptions = this.createOptions.bind(this)
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
+        this.registerUser = this.registerUser.bind(this)
     }
     openModalHandler = () => {
         this.setState({
@@ -85,14 +86,38 @@ class UserRegistration extends Component {
     }
     handleRegister(event) {
         event.preventDefault();
-        console.log(this.state)
-      }
+        this.registerUser()
+        this.closeModalHandler()
+        }
+    registerUser() {
+        fetch("http://localhost:5000/register_user", {
+            method: "POST",
+            mode: "cors",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({first:this.state.first,
+                                last:this.state.last,
+                                gender:this.state.gender,
+                                birthday:this.state.birthday,
+                                postal:this.state.postal,
+                                userState:this.state.userState,
+                                email:this.state.email,
+                                password:this.state.password},)
+            })
+        .then(data => data.json())
+        .then((data) => {
+            console.log("it hit the server")
+            alert(data["message"])
+        })	
+        .catch(error => console.error(error));	
+        }
     handleFirstChange(event) {
         this.setState({first: event.target.value})
       }
     handleLastChange(event) {
         this.setState({last: event.target.value})
-        console.log(this.state.last)
       }
     handleGenderChange(event) {
         this.setState({gender: event.target.value})
@@ -139,9 +164,9 @@ class UserRegistration extends Component {
                             <label>
                             Gender:
                             <select value={this.state.value} onChange={this.handleGenderChange}>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option selected defaultValue="na">N/A</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option selected defaultValue="NA">N/A</option>
                             </select>
                             </label>
                             <br />
@@ -151,7 +176,7 @@ class UserRegistration extends Component {
                             </label>
                             <label>
                             Postal Code:
-                            <input type="text" maxlength="5" value={this.state.value} onChange={this.handlePostalChange} />
+                            <input type="text" maxLength="5" value={this.state.value} onChange={this.handlePostalChange} />
                             </label>
                             <label>
                             State:

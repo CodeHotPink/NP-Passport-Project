@@ -61,7 +61,7 @@ class User(db.Model):
 						nullable=False)
 	gender = db.Column(db.String(2),
 						nullable=False)
-	birthday = db.Column(db.DateTime(),
+	birthday = db.Column(db.Date(),
 						nullable=False)
 	postal_code = db.Column(db.Integer(),
 						nullable=True)

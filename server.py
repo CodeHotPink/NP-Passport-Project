@@ -40,7 +40,6 @@ def after(response):
 @app.route('/')
 def index():
 	""" index.html for jsx """
-	# html = render_template("np_passport/public/index.html")
 	welcome = "Hi there" 
 	return jsonify(welcome)
 
@@ -70,6 +69,87 @@ def user_log_in():
 			return jsonify({"message": "Password is incorrect, please check password"})
 		else:
 			return jsonify({"message": "Successfully logged in"})
+
+@app.route('/register_user', methods=['POST'])
+@cross_origin()
+def register_user():
+	"""Register user"""
+	data = request.get_json()
+	print(data)
+	states = {'Alaska': 'AK', 
+			'Alabama': 'AL', 
+			'Arkansas': 'AR', 
+			'Arizona': 'AZ', 
+			'California': 'CA', 
+			'Colorado': 'CO', 
+			'Connecticut': 'CT', 
+			'District of Columbia': 'DC', 
+			'Delaware': 'DE', 
+			'Florida': 'FL', 
+			'Georgia': 'GA', 
+			'Hawaii': 'HI', 
+			'Iowa': 'IA', 
+			'Idaho': 'ID', 
+			'Illinois': 'IL', 
+			'Indiana': 'IN', 
+			'Kansas': 'KS', 
+			'Kentucky': 'KY', 
+			'Louisiana': 'LA', 
+			'Massachusetts': 'MA', 
+			'Maryland': 'MD', 
+			'Maine': 'ME', 
+			'Michigan': 'MI', 
+			'Minnesota': 'MN', 
+			'Missouri': 'MO', 
+			'Mississippi': 'MS', 
+			'Montana': 'MT', 
+			'North Carolina': 'NC', 
+			'North Dakota': 'ND', 
+			'Nebraska': 'NE', 
+			'New Hampshire': 'NH', 
+			'New Jersey': 'NJ', 
+			'New Mexico': 'NM', 
+			'Nevada': 'NV', 
+			'New York': 'NY', 
+			'Ohio': 'OH', 
+			'Oklahoma': 'OK', 
+			'Oregon': 'OR', 
+			'Pennsylvania': 'PA', 
+			'Rhode Island': 'RI', 
+			'South Carolina': 'SC', 
+			'South Dakota': 'SD', 
+			'Tennessee': 'TN', 
+			'Texas': 'TX', 
+			'Utah': 'UT', 
+			'Virginia': 'VA', 
+			'Vermont': 'VT', 
+			'Washington': 'WA', 
+			'Wisconsin': 'WI', 
+			'West Virginia': 'WV', 
+			'Wyoming': 'WY'}
+	first = data["first"]
+	last = data["last"]
+	gender = data["gender"]
+	birthday = data["birthday"]
+	postal = data["postal"]
+	user_state = states[data["userState"]]
+	print(user_state)
+	email = data["email"]
+	password = data["password"]
+	db_user = User(first_name=first,
+				last_name=last,
+				gender=gender,
+				birthday=birthday,
+				postal_code=postal,
+				state=user_state,
+				email=email,
+				password=password)
+	db.session.add(db_user)
+	db.session.commit()
+	print(db_user)
+	message = f"{db_user.first_name} {db_user.last_name} has been successfully registered"
+	print(message)
+	return jsonify({"message": message})
 
 @app.route('/display_user_visits', methods=['POST'])
 @cross_origin()
