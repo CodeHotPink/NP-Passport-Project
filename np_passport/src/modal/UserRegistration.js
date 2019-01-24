@@ -71,6 +71,7 @@ class UserRegistration extends Component {
         this.handleUsStateChange = this.handleUsStateChange.bind(this)
         this.createOptions = this.createOptions.bind(this)
         this.handleEmailChange = this.handleEmailChange.bind(this)
+        this.handlePasswordChange = this.handlePasswordChange.bind(this)
     }
     openModalHandler = () => {
         this.setState({
@@ -108,6 +109,9 @@ class UserRegistration extends Component {
     }
     handleEmailChange(event) {
         this.setState({email: event.target.value})
+    }
+    handlePasswordChange(event) {
+        this.setState({password: event.target.value})
     }
     createOptions(arrayObject) {
         return <option> {arrayObject} </option>;
@@ -160,6 +164,10 @@ class UserRegistration extends Component {
                             <label>
                             Email:
                             <input type="text" maxLength="100" value={this.state.value} onChange={this.handleEmailChange} />
+                            </label>
+                            <label>
+                            Password:
+                            <input type="text" maxLength="100" value={this.state.value} onChange={this.handlePasswordChange} />
                             </label>
                         </form>
                 </RegistrationModal>
