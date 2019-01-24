@@ -16,6 +16,7 @@ class UserRegistration extends Component {
         this.handleGenderChange = this.handleGenderChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleBirthdayChange = this.handleBirthdayChange.bind(this)
+        this.handlePostalChange = this.handlePostalChange.bind(this)
     }
     openModalHandler = () => {
         this.setState({
@@ -45,6 +46,9 @@ class UserRegistration extends Component {
     handleBirthdayChange(event) {
         this.setState({birthday: event.target.value})
     }
+    handlePostalChange(event) {
+        this.setState({postal: event.target.value})
+    }
     render () {
         return (
             <div>
@@ -59,11 +63,11 @@ class UserRegistration extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <label>
                             First Name:
-                            <input type="text" value={this.state.value} onChange={this.handleFirstChange} />
+                            <input type="text" maxLength="50" value={this.state.value} onChange={this.handleFirstChange} />
                             </label>
                             <label>
                             Last Name:
-                            <input type="text" value={this.state.value} onChange={this.handleLastChange} />
+                            <input type="text" maxLength="50" value={this.state.value} onChange={this.handleLastChange} />
                             </label>
                             <label>
                             Gender:
@@ -78,7 +82,10 @@ class UserRegistration extends Component {
                             Birthday:
                             <input type="date" name="birthday" min="1900-01-01" max="2006-01-01" value={this.state.value} onChange={this.handleBirthdayChange}/>
                             </label>
-                            <input type="submit" value="Submit" />
+                            <label>
+                            Postal Code:
+                            <input type="text" maxlength="5" value={this.state.value} onChange={this.handlePostalChange} />
+                            </label>
                         </form>
                 </RegistrationModal>
             </div>
