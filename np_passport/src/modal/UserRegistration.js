@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import RegistrationModal from './RegistrationModal';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 class UserRegistration extends Component {
     constructor(props) {
@@ -45,10 +43,10 @@ class UserRegistration extends Component {
         this.setState({gender: event.target.value})
         console.log(this.state.gender)
     }
-    handleBirthdayChange(date) {
-        console.log(date)
-        this.setState({startDate: date})
-        console.log(this.state.startDate)
+    handleBirthdayChange(event) {
+        this.setState({birthday: event.target.value})
+        console.log(this.state.birthday)
+        console.log(typeof(this.state.birthday))
     }
     render () {
         return (
@@ -81,7 +79,7 @@ class UserRegistration extends Component {
                             <br />
                             <label>
                             Birthday:
-                            <input type="date" name="birthday" min="1900-01-01" max="2006-01-01" />
+                            <input type="date" name="birthday" min="1900-01-01" max="2006-01-01" value={this.state.value} onChange={this.handleBirthdayChange}/>
                             </label>
                             <input type="submit" value="Submit" />
                         </form>
