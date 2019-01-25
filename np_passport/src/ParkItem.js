@@ -1,7 +1,9 @@
 import React from 'react';
 import ReviewList from './ReviewList';
+import ParkList from './ParkList';
+import ParkPage from './ParkPage';
 
-const ParkItem = ({park}) => {        
+const ParkItem = ({park, handleShowParksClick, handleParkPageClick, boundSetState}) => {        
   const image = park['images'][0]['url']
   const imageAlt = park['images'][0]['altText']
   const address = park['addresses'][0]['line1']
@@ -12,13 +14,19 @@ const ParkItem = ({park}) => {
   const website = park['url']
   const parkName = park['fullName']
   const parkCode = park['parkCode']
+  function viewParkPage(event) {
+    handleShowParksClick()
+    handleParkPageClick()
+    boundSetState({'parkName':parkName})
+  }
   return (
     <div>
-      <td onClick={()=> window.open(`https://www.nps.gov/${parkCode}/index.htm`, "_blank")}>{parkName}</td>
+      <button onClick={viewParkPage}>{parkName}</button>
       <img src={image} alt={imageAlt} height='100' width='100' /><br />
       {address}<br />
       {city}, {state} {zipCode}<br />
       {phoneNumber}<br />
+      <td onClick={()=> window.open(`https://www.nps.gov/${parkCode}/index.htm`, "_blank")}>{parkName}'s website</td>
       Put # of stars<ReviewList park = {parkName}/>
     </div>
   );
