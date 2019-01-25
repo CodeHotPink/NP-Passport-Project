@@ -20,7 +20,6 @@ const registrationModal = (props) => {
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <button className="btn-cancel" onClick={props.close}>CLOSE</button>
                     <button className="btn-continue" onClick={props.register}> REGISTER</button>
                 </div>
             </div>
