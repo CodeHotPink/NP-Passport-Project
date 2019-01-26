@@ -25,8 +25,13 @@ def visit_list_to_json(visit_list):
 		"""Converting visit list obtained from query into json object."""
 		json_visits = {"visits":[]}
 		for individual_visit in visit_list:
+			user = User.query.filter(User.user_id == individual_visit.user_id).first()
+			first_name = user.first_name
+			last_name = user.last_name
+			user = f"{first_name} {last_name}"
+			print(user)
 			visit = {"parkId":individual_visit.park_id,
-						"userId":individual_visit.user_id,
+						"userId":user,
 						"visitDate":individual_visit.visit_date}
 			json_visits["visits"].append(visit)
 		return json_visits
@@ -54,6 +59,18 @@ def display_park_reviews():
 	list_of_reviews = Review.query.join(Review.park).filter(Park.park_id == park_id).all()
 	reviews = review_list_to_json(list_of_reviews)
 	return jsonify(reviews)
+
+@app.route('/display_park_visits', methods=['POST'])
+@cross_origin()
+def display_park_visits():
+	"""Given a park's name from site, it will return all visits made by users for that park"""
+	data = request.get_json()
+	full_name = data["park"]
+	park = Park.query.filter(Park.park_name == full_name).first()
+	park_id = park.park_id
+	list_of_visits = Visit.query.join(Visit.park).filter(Park.park_id == park_id).all()
+	visits = visit_list_to_json(list_of_visits)
+	return jsonify(visits)
 
 @app.route('/user_log_in', methods=['POST'])
 @cross_origin()
@@ -162,12 +179,8 @@ def display_user_visits():
 	data = request.get_json()
 	email = data["email"]
 	user_id = User.query.filter(User.email == email).first()
-	print(f"this is what comes from the query: {user_id}")
 	user_id = user_id.user_id
-	print(f"this is after keying into user_id: {user_id}")
 	list_of_visits = Visit.query.filter(Visit.user_id == user_id).all()
-	print(type(list_of_visits))
-	print(f"this is list_of_visits {list_of_visits}")
 	if list_of_visits:
 		visits = visit_list_to_json(list_of_visits)
 		return jsonify(visits)

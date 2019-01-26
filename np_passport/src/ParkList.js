@@ -36,7 +36,7 @@ class ParkList extends Component {
 			return parkList
 		}
 		else if (this.state.singleParkPage && this.state.showParks === false) {
-			return <ParkPage parkName={this.state.parkName}/>
+			return <ParkPage park={this.state.parkName}/>
 		}
 	}
 

@@ -7,31 +7,55 @@ class ParkPage extends Component {
 		super(props);
 		this.state = {
 			parks: data['data'],
-			showParks: false
+			showParks: false,
+			parkVisits: undefined
 		}
 		this.renderParks = this.renderParks.bind(this)
-		this.handleClick = this.handleClick.bind(this)
+		this.componentDidMount = this.componentDidMount.bind(this)
+		this.fetchParkVisits = this.fetchParkVisits.bind(this)
+		this.renderParkVisits = this.renderParkVisits.bind(this)
+		this.listDisplayParkVisits = this.listDisplayParkVisits.bind(this)
 	} 
 
-	handleClick() {
-		this.setState({showParks: !this.state.showParks})
+	componentDidMount() {
+		this.fetchParkVisits()
 	}
 
-	renderParks() {
-		let parkList = this.state.parks.map(parkItem => <ParkItem park={parkItem} />)
-		if (this.state.showParks) {
-			return parkList
+	fetchParkVisits() {
+		fetch("http://localhost:5000/display_park_visits", {
+			method: "POST",
+			mode: "cors",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({park:this.props["park"]})
+			})
+		.then(data => data.json())
+		.then((data) => {
+			this.setState({parkVisits: data})
+		})	
+		.catch(error => console.error(error));	
+	}
+
+	renderParkVisits() {
+		if (this.state.singleParkPage && this.state.parkVisits) {
+			return this.listDisplayParkVisits()
+		} else if (this.state.singleParkPage) {
+			return (<div>Loading ...</div>)
 		}
 	}
 
-
+	listDisplayParkVisits() {
+		console.log(this.state.parkVisits)
+	}
 
 	render() {
 		const {parks} = this.state;
 		return (
 			<div>
 				<div>
-					I will render stuff here
+					{this.renderParkVisits}
 				</div>
 			</div>
 		)
