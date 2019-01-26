@@ -27,7 +27,7 @@ const ParkItem = ({park, handleShowParksClick, handleParkPageClick, boundSetStat
       {city}, {state} {zipCode}<br />
       {phoneNumber}<br />
       <td onClick={()=> window.open(`https://www.nps.gov/${parkCode}/index.htm`, "_blank")}>{parkName}'s website</td>
-      Put # of stars<ReviewList park = {parkName}/>
+      Put # of stars
     </div>
   );
 };

@@ -2,6 +2,8 @@ from model import (Park, User, Visit, Review, connect_to_db, db)
 from flask import (Flask, jsonify, redirect, request, session)
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
+import datetime
+import pdb
 
 # pip3 isntall -u flask-cors
 app = Flask(__name__)
@@ -19,11 +21,13 @@ def review_list_to_json(review_list):
 			user = f"{first_name} {last_name}"
 			park = Park.query.filter(Park.park_id == individual_review.park_id).first()
 			park = park.park_name
+			date = individual_review.review_date
+			date = datetime.datetime.strftime(date,'%m-%d-%Y')
 			review = {"parkId":park,
 						"userId":user,
 						"numOfStars":individual_review.num_of_stars,
 						"textReview":individual_review.text_review,
-						"reviewDate":individual_review.review_date}
+						"reviewDate":date}
 			json_reviews["reviews"].append(review)
 		return json_reviews
 
