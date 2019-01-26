@@ -13,8 +13,14 @@ def review_list_to_json(review_list):
 		"""Converting review list obtained from query into json object."""
 		json_reviews = {"reviews":[]}
 		for individual_review in review_list:
-			review = {"parkId":individual_review.park_id,
-						"userId":individual_review.user_id,
+			user = User.query.filter(User.user_id == individual_review.user_id).first()
+			first_name = user.first_name
+			last_name = user.last_name
+			user = f"{first_name} {last_name}"
+			park = Park.query.filter(Park.park_id == individual_review.park_id).first()
+			park = park.park_name
+			review = {"parkId":park,
+						"userId":user,
 						"numOfStars":individual_review.num_of_stars,
 						"textReview":individual_review.text_review,
 						"reviewDate":individual_review.review_date}

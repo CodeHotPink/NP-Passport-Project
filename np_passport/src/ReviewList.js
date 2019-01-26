@@ -19,7 +19,6 @@ class ReviewList extends Component {
 	}
 
 	listDisplayReviews() {
-		console.log(this.state.reviews)
 		return this.state.reviews["reviews"].map(review => <ReviewItem review={review} />)
 	}
 
@@ -54,12 +53,16 @@ class ReviewList extends Component {
 
 	viewReviewsButton() {
 		if (this.state.showReviews) {
-			return (<div><button onClick={this.handleClick}>
-			Close park's reviews
-			</button>
-			{this.listDisplayReviews()}
-			</div>
-			)
+			if (this.state.reviews) {
+				return (<div><button onClick={this.handleClick}>
+					Close park's reviews
+					</button>
+					{this.listDisplayReviews()}
+					</div>
+				)
+			} else {
+				return (<div>Loading ...</div>)
+			}
 		}
 		else {
 			return <button onClick={this.handleClick}>
@@ -72,7 +75,6 @@ class ReviewList extends Component {
 		return (
 			<div>
 				{this.viewReviewsButton()}
-				{this.renderReviews()}
 			</div>
 		)
 	}
