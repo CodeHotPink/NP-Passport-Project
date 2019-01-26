@@ -45,8 +45,6 @@ class ReviewList extends Component {
 	}
 
 	renderReviews() {
-		// let reviewList = this.state.reviews.map(reviewItem => <ReviewItem review={reviewItem} />)
-		// let reviewList = this.state.reviews.map(individualReview => {this.fetchReviews({individualReview})})
 		if (this.state.showReviews && this.state.reviews) {
 			return this.listDisplayReviews()
 		} else if (this.state.showReviews) {
@@ -54,12 +52,26 @@ class ReviewList extends Component {
 		}
 	}
 
+	viewReviewsButton() {
+		if (this.state.showReviews) {
+			return (<div><button onClick={this.handleClick}>
+			Close park's reviews
+			</button>
+			{this.listDisplayReviews()}
+			</div>
+			)
+		}
+		else {
+			return <button onClick={this.handleClick}>
+			View park's reviews
+			</button>
+		}
+	}
+
 	render() {
 		return (
 			<div>
-				<button onClick={this.handleClick}>
-					View all reviews
-				</button>
+				{this.viewReviewsButton()}
 				{this.renderReviews()}
 			</div>
 		)

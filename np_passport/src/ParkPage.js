@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import data from './national_parks_list';
 import ParkItem from './ParkItem';
 import VisitItem from './VisitItem';
+import ReviewList from './ReviewList';
 
 class ParkPage extends Component {
 	constructor(props){
@@ -21,6 +22,10 @@ class ParkPage extends Component {
 		this.listDisplayParkVisits = this.listDisplayParkVisits.bind(this)
 		this.handleViewVisitsButton = this.handleViewVisitsButton.bind(this)
 		this.viewVisitsButton = this.viewVisitsButton.bind(this)
+		this.listDisplayParkReviews = this.listDisplayParkReviews.bind(this)
+		this.viewReviewsButton = this.viewReviewsButton.bind(this)
+		this.handleViewReviewsButton = this.handleViewReviewsButton.bind(this)
+		this.renderParkReviews = this.renderParkReviews.bind(this)
 	} 
 
 	componentDidMount() {
@@ -53,8 +58,20 @@ class ParkPage extends Component {
 		}
 	}
 
+	renderParkReviews() {
+		if (this.props.singleParkPage) {
+			return this.listDisplayParkReviews() 
+		} else if (this.state.singleParkPage) {
+			return (<div>Loading ...</div>)
+		}
+	}
+
 	handleViewVisitsButton() {
 		this.setState({viewVisits: !this.state.viewVisits})
+	}
+
+	handleViewReviewsButton() {
+		this.setState({viewReviews: !this.state.viewReviews})
 	}
 
 	viewVisitsButton() {
@@ -73,16 +90,36 @@ class ParkPage extends Component {
 		}
 	}
 
+	viewReviewsButton() {
+		if (this.state.viewReviews) {
+			return (<div><button onClick={this.handleViewReviewsButton}>
+			Close park's reviews
+			</button>
+			{this.listDisplayParkReviews()}
+			</div>
+			)
+		}
+		else {
+			return <button onClick={this.handleViewReviewsButton}>
+			View park's reviews
+			</button>
+		}
+	}
+
 	listDisplayParkVisits() {
 		console.log(this.state.parkVisits)
 		return this.state.parkVisits["visits"].map(visit => <VisitItem visit={visit} />)
+	}
+
+	listDisplayParkReviews() {
+		return <ReviewList park = {this.props.park}/>
 	}
 
 	render() {
 		const {parks} = this.state;
 		return (
 			<div>
-
+				{this.renderParkReviews()}
 				{this.renderParkVisits()}
 			</div>
 		)
