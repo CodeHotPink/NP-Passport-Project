@@ -16,8 +16,8 @@ const ParkItem = ({park, handleShowParksClick, handleParkPageClick, boundSetStat
   const parkCode = park['parkCode']
   function viewParkPage(event) {
     boundSetState({'park':parkName})
-    handleShowParksClick()
-    handleParkPageClick()
+    boundSetState({'singleParkPage':true})
+    boundSetState({'showParks':false})
   }
   return (
     <div>

@@ -36,12 +36,20 @@ class ParkList extends Component {
 			return parkList
 		}
 		else if (this.state.singleParkPage && this.state.showParks === false) {
-			return <ParkPage park={this.state.park} singleParkPage={this.state.singleParkPage}/>
+			return <ParkPage park={this.state.park} singleParkPage={this.state.singleParkPage} handleParkPageClick={this.handleParkPageClick} handleShowParksClick={this.handleShowParksClick}/>
 		}
 	}
 
 	viewAllParksButton() {
-		if (this.state.showParks) {
+		if (this.state.singleParkPage && this.state.showParks === false) {
+			return <button onClick={this.handleParkPageClick} onClick={this.handleShowParksClick}>
+			Back
+			</button>
+		}
+		else if (this.state.showParks) {
+			if (this.state.singleParkPage) {
+				this.setState({singleParkPage: false})
+			}
 			return <button onClick={this.handleShowParksClick}>
 			Close list of all parks
 			</button>

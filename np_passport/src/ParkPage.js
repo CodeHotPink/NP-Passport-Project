@@ -6,6 +6,8 @@ import VisitItem from './VisitItem';
 class ParkPage extends Component {
 	constructor(props){
 		super(props);
+		console.log('these are the ParkPage props"')
+		console.log(this.props)
 		this.state = {
 			parks: data['data'],
 			showParks: false,
@@ -80,6 +82,7 @@ class ParkPage extends Component {
 		const {parks} = this.state;
 		return (
 			<div>
+
 				{this.renderParkVisits()}
 			</div>
 		)
