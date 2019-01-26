@@ -41,9 +41,11 @@ def visit_list_to_json(visit_list):
 			user = f"{first_name} {last_name}"
 			park = Park.query.filter(Park.park_id == individual_visit.park_id).first()
 			park = park.park_name
+			date = individual_visit.visit_date
+			date = datetime.datetime.strftime(date, '%m-%d-%Y')
 			visit = {"parkId":park,
 						"userId":user,
-						"visitDate":individual_visit.visit_date}
+						"visitDate":date}
 			json_visits["visits"].append(visit)
 		return json_visits
 
