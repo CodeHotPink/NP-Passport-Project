@@ -36,7 +36,20 @@ class ParkList extends Component {
 			return parkList
 		}
 		else if (this.state.singleParkPage && this.state.showParks === false) {
-			return <ParkPage park={this.state.parkName}/>
+			return <ParkPage park={this.state.park} singleParkPage={this.state.singleParkPage}/>
+		}
+	}
+
+	viewAllParksButton() {
+		if (this.state.showParks) {
+			return <button onClick={this.handleShowParksClick}>
+			Close list of all parks
+			</button>
+		}
+		else {
+			return <button onClick={this.handleShowParksClick}>
+			View list of all parks
+			</button>
 		}
 	}
 
@@ -44,9 +57,7 @@ class ParkList extends Component {
 		const {parks} = this.state;
 		return (
 			<div>
-				<button onClick={this.handleShowParksClick}>
-					View all
-				</button>
+				{this.viewAllParksButton()}
 				<div>
 					{this.renderParks()}
 				</div>

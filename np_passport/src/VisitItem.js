@@ -7,7 +7,7 @@ const VisitItem = ({visit}) => {
   
   return (
     <div>
-      User {userId} visited park {parkId} on {visitDate}.<br />
+      {userId} visited {parkId} on {visitDate}.<br />
     </div>
   );
 };

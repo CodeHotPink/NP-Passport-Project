@@ -29,8 +29,9 @@ def visit_list_to_json(visit_list):
 			first_name = user.first_name
 			last_name = user.last_name
 			user = f"{first_name} {last_name}"
-			print(user)
-			visit = {"parkId":individual_visit.park_id,
+			park = Park.query.filter(Park.park_id == individual_visit.park_id).first()
+			park = park.park_name
+			visit = {"parkId":park,
 						"userId":user,
 						"visitDate":individual_visit.visit_date}
 			json_visits["visits"].append(visit)
@@ -65,6 +66,7 @@ def display_park_reviews():
 def display_park_visits():
 	"""Given a park's name from site, it will return all visits made by users for that park"""
 	data = request.get_json()
+	print(data)
 	full_name = data["park"]
 	park = Park.query.filter(Park.park_name == full_name).first()
 	park_id = park.park_id
@@ -180,12 +182,13 @@ def display_user_visits():
 	email = data["email"]
 	user_id = User.query.filter(User.email == email).first()
 	user_id = user_id.user_id
+	user = User.query.filter(User.user_id == user_id).first()
 	list_of_visits = Visit.query.filter(Visit.user_id == user_id).all()
 	if list_of_visits:
 		visits = visit_list_to_json(list_of_visits)
 		return jsonify(visits)
 	else:
-		return jsonify({"userId":user_id})
+		return jsonify({"userId":"You"})
 
 	
 

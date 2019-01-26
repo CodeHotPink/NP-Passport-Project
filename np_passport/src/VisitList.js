@@ -21,7 +21,7 @@ class VisitList extends Component {
 	listDisplayVisits() {
 		console.log(this.state.visits)
 		if (this.state.visits["userId"]) {
-			return <div>User {this.state.visits["userId"]} has not visited any parks yet</div>
+			return <div>{this.state.visits["userId"]} have not visited any parks yet</div>
 		}
 		else {
 			return this.state.visits["visits"].map(visit => <VisitItem visit={visit} />)
