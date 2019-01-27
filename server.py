@@ -49,6 +49,32 @@ def visit_list_to_json(visit_list):
 			json_visits["visits"].append(visit)
 		return json_visits
 
+def park_info_to_json(park_info):
+	"""Converting park info obtained from query into json object."""
+	park_name = park_info.park_name
+	park_description = park_info.park_description
+	park_weather = park_info.park_weather
+	park_address = park_info.park_address
+	park_state = park_info.park_state
+	postal_code = park_info.postal_code
+	latitude = park_info.latitude
+	longitude = park_info.longitude
+	phone_num = park_info.phone_num
+	park_photo = park_info.park_photo
+	park_website = park_info.park_website
+	park_info = {"parkName":park_name,
+			"parkDescription":park_description,
+			"parkWeather":park_weather,
+			"parkAddress":park_address,
+			"parkState":park_state,
+			"postalCode":postal_code,
+			"latitude":latitude,
+			"longitude":longitude,
+			"phoneNum":phone_num,
+			"parkPhoto":park_photo,
+			"website":park_website}
+	return park_info
+
 @app.after_request
 def after(response):
   """Adds headers to all responses to satisfy CORS."""
@@ -78,7 +104,6 @@ def display_park_reviews():
 def display_park_visits():
 	"""Given a park's name from site, it will return all visits made by users for that park"""
 	data = request.get_json()
-	print(data)
 	full_name = data["park"]
 	park = Park.query.filter(Park.park_name == full_name).first()
 	park_id = park.park_id
@@ -201,6 +226,16 @@ def display_user_visits():
 		return jsonify(visits)
 	else:
 		return jsonify({"userId":"You"})
+
+@app.route('/individual_park_info', methods=['POST'])
+@cross_origin()
+def individual_park_info():
+	""" Returning individual park info for park page view """
+	data = request.get_json()
+	park_name = data["park"]
+	park = Park.query.filter(Park.park_name == park_name).first()
+	park_info = park_info_to_json(park)
+	return jsonify(park_info)
 
 	
 

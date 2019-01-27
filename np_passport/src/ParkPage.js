@@ -20,10 +20,12 @@ class ParkPage extends Component {
 		this.handleViewVisitsButton = this.handleViewVisitsButton.bind(this)
 		this.viewVisitsButton = this.viewVisitsButton.bind(this)
 		this.renderParkReviews = this.renderParkReviews.bind(this)
+		this.fetchParkInfo = this.fetchParkInfo.bind(this)
 	} 
 
 	componentDidMount() {
 		this.fetchParkVisits()
+		this.fetchParkInfo()
 	}
 
 	fetchParkVisits() {
@@ -39,6 +41,24 @@ class ParkPage extends Component {
 		.then(data => data.json())
 		.then((data) => {
 			this.setState({'parkVisits': data})
+		})	
+		.catch(error => console.error(error));	
+	}
+
+	fetchParkInfo() {
+		fetch("http://localhost:5000/individual_park_info", {
+			method: "POST",
+			mode: "cors",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({park:this.props["park"]})
+			})
+		.then(data => data.json())
+		.then((data) => {
+			console.log(data)
+			this.setState({'parkInfo': data})
 		})	
 		.catch(error => console.error(error));	
 	}
@@ -75,6 +95,8 @@ class ParkPage extends Component {
 		}
 	}
 
+
+
 	listDisplayParkVisits() {
 		return this.state.parkVisits["visits"].map(visit => <VisitItem visit={visit} />)
 	}
@@ -83,6 +105,7 @@ class ParkPage extends Component {
 		const {parks} = this.state;
 		return (
 			<div>
+				{this.props.park}
 				{this.renderParkReviews()}
 				{this.viewVisitsButton()}
 			</div>
