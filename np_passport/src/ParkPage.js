@@ -3,6 +3,7 @@ import data from './national_parks_list';
 import ParkItem from './ParkItem';
 import VisitItem from './VisitItem';
 import ReviewList from './ReviewList';
+import ErrorPhoto from './404';
 
 class ParkPage extends Component {
 	constructor(props){
@@ -24,8 +25,8 @@ class ParkPage extends Component {
 	} 
 
 	componentDidMount() {
-		this.fetchParkVisits()
 		this.fetchParkInfo()
+		this.fetchParkVisits()
 	}
 
 	fetchParkVisits() {
@@ -57,8 +58,9 @@ class ParkPage extends Component {
 			})
 		.then(data => data.json())
 		.then((data) => {
-			console.log(data)
 			this.setState({'parkInfo': data})
+			console.log(this.state.parkInfo)
+			console.log(this.state.parkInfo.parkDescription)
 		})	
 		.catch(error => console.error(error));	
 	}
@@ -103,13 +105,23 @@ class ParkPage extends Component {
 
 	render() {
 		const {parks} = this.state;
-		return (
-			<div>
-				{this.props.park}
-				{this.renderParkReviews()}
-				{this.viewVisitsButton()}
-			</div>
-		)
+		console.log(this.props)
+		console.log(this.state)
+		if (this.state.parkInfo) {
+			return (
+				<div>
+					<object data={this.state.parkInfo.parkPhoto} type="image/png" height='100' width='100'>
+						<img src={ErrorPhoto} alt={this.props.imageAlt} height='100' width='100'/>
+					</object><br />
+					{this.state.parkInfo.parkDescription}<br /><br />
+					{this.state.parkInfo.parkWeather}<br /><br />
+					{this.renderParkReviews()}
+					{this.viewVisitsButton()}
+				</div>
+			)
+		} else {
+			return (<div>Loading ...</div>)
+		}
 	}
 }
 

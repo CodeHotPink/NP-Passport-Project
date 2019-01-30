@@ -45,6 +45,8 @@ def visit_list_to_json(visit_list):
 			date = datetime.datetime.strftime(date, '%m-%d-%Y')
 			visit = {"parkId":park,
 						"userId":user,
+						"firstName":first_name,
+						"lastName":last_name,
 						"visitDate":date}
 			json_visits["visits"].append(visit)
 		return json_visits
