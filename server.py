@@ -239,6 +239,16 @@ def individual_park_info():
 	park_info = park_info_to_json(park)
 	return jsonify(park_info)
 
+@app.route('/all_park_names', methods=['POST'])
+@cross_origin()
+def all_park_names():
+	""" Returning individual park info for park page view """
+	parks = Park.query.all()
+	parks_json = {"parks": []}
+	for park in parks:
+		parks_json["parks"].append(park.park_name)
+	return jsonify(parks_json)
+
 	
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import VisitList from './VisitList';
 import UserRegistration from './modal/UserRegistration';
+import AddVisit from './modal/AddVisit';
 
 class LoginForm extends Component {
 	constructor(props){
@@ -22,7 +23,31 @@ class LoginForm extends Component {
         this.showHide = this.showHide.bind(this)
         this.viewUserVisitsButton = this.viewUserVisitsButton.bind(this)
         this.handleUserVisitsClick = this.handleUserVisitsClick.bind(this)
+        this.fetchAllParkNames = this.fetchAllParkNames.bind(this)
   } 
+  componentDidMount() {
+      this.fetchAllParkNames()
+  }
+
+
+  fetchAllParkNames() {
+    fetch("http://localhost:5000/all_park_names", {
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        }
+        })
+    .then(data => data.json())
+    .then((data) => {
+        console.log("test: got all parks")
+        console.log(data)
+        this.state.allParkNames = data
+        }
+    )	
+    .catch(error => console.error(error));	
+    }
   handleSubmit(event) {
     event.preventDefault();
     this.userLogIn()
@@ -81,8 +106,6 @@ class LoginForm extends Component {
     }
 
     userOrGuest() {
-        console.log('this is log in form')
-        console.log(this.state)
         if (this.state.login === true){
             return (
                 <div>
@@ -119,6 +142,7 @@ class LoginForm extends Component {
                     <button onClick={this.handleUserVisitsClick}>
                         Close list of your visits
                     </button>
+                    <AddVisit allParkNames={this.state.allParkNames}/>
                     <VisitList email={this.state.email}/>
                 </div>
             )
