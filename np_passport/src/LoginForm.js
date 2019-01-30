@@ -64,13 +64,13 @@ class LoginForm extends Component {
             <form onSubmit={this.handleSubmit}>
                 <label>
                 Email:
-                <input type="text" value={this.state.value} onChange={this.handleEmailChange} />
                 </label>
+                <input type="text" value={this.state.value} onChange={this.handleEmailChange} />
                 <label>
                 Password:
+                </label>
                 <input type={this.state.type} value={this.state.value} onChange={this.handlePasswordChange} />
                 <span className="password__show" onClick={this.showHide}>{this.state.type === 'password' ? 'Show' : 'Hide'}</span>
-                </label>
                 <br />
                 <input type="submit" value="Log In" />
             </form>

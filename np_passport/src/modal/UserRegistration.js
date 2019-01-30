@@ -178,41 +178,41 @@ class UserRegistration extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <label>
                             First Name:
-                            <input type="text" maxLength="50" value={this.state.value} onChange={this.handleFirstChange} />
                             </label>
+                            <input type="text" maxLength="50" value={this.state.value} onChange={this.handleFirstChange} />
                             <label>
                             Last Name:
-                            <input type="text" maxLength="50" value={this.state.value} onChange={this.handleLastChange} />
                             </label>
+                            <input type="text" maxLength="50" value={this.state.value} onChange={this.handleLastChange} />
                             <label>
                             Gender:
+                            </label>
                             <select value={this.state.value} onChange={this.handleGenderChange}>
                                 <option value="M">Male</option>
                                 <option value="F">Female</option>
                                 <option selected defaultValue="NA">N/A</option>
                             </select>
-                            </label>
                             <br />
                             <label>
                             Birthday:
-                            <input type="date" name="birthday" min="1900-01-01" max="2006-01-01" value={this.state.value} onChange={this.handleBirthdayChange}/>
                             </label>
+                            <input type="date" name="birthday" min="1900-01-01" max="2006-01-01" value={this.state.value} onChange={this.handleBirthdayChange}/>
                             <label>
                             Postal Code:
-                            <input type="text" maxLength="5" value={this.state.value} onChange={this.handlePostalChange} />
                             </label>
+                            <input type="text" maxLength="5" value={this.state.value} onChange={this.handlePostalChange} />
                             <label>
                             State:
-                            <select value={this.state.value} onChange={this.handleUsStateChange}>{this.state.states.map(this.createOptions)}</select>
                             </label>
+                            <select value={this.state.value} onChange={this.handleUsStateChange}>{this.state.states.map(this.createOptions)}</select>
                             <label>
                             Email:
-                            <input type="text" maxLength="100" value={this.state.value} onChange={this.handleEmailChange} />
                             </label>
+                            <input type="text" maxLength="100" value={this.state.value} onChange={this.handleEmailChange} />
                             <label>
                             Password:
-                            <input type={this.state.type} maxLength="100" value={this.state.value} onChange={this.handlePasswordChange} /><span className="password__show" onClick={this.showHide}>{this.state.type === 'password' ? 'Show' : 'Hide'}</span>
                             </label>
+                            <input type={this.state.type} maxLength="100" value={this.state.value} onChange={this.handlePasswordChange} /><span className="password__show" onClick={this.showHide}>{this.state.type === 'password' ? 'Show' : 'Hide'}</span>
                         </form>
                 </RegistrationModal>
             </div>

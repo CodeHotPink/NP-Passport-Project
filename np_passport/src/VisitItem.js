@@ -1,5 +1,5 @@
 import React from 'react';
-import PostCard from './postcard.css'
+import postcard from './postcard.css';
 
 const VisitItem = ({visit}) => {
   const parkId = visit['parkId']
