@@ -10,7 +10,8 @@ class LoginForm extends Component {
             email: "",
             password: "",
             message: "",
-            type: "password"
+            type: "password",
+            userVisits: false
         }
         this.userOrGuest = this.userOrGuest.bind(this)
 		this.loginForm = this.loginForm.bind(this)
@@ -19,6 +20,8 @@ class LoginForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.logOutButton = this.logOutButton.bind(this)
         this.showHide = this.showHide.bind(this)
+        this.viewUserVisitsButton = this.viewUserVisitsButton.bind(this)
+        this.handleUserVisitsClick = this.handleUserVisitsClick.bind(this)
   } 
   handleSubmit(event) {
     event.preventDefault();
@@ -78,13 +81,16 @@ class LoginForm extends Component {
     }
 
     userOrGuest() {
+        console.log('this is log in form')
+        console.log(this.state)
         if (this.state.login === true){
             return (
                 <div>
                     <button onClick={this.logOutButton}>
                         Log out
                     </button>
-                    <VisitList email={this.state.email} />
+                    <br />
+                    {this.viewUserVisitsButton()}
                 </div>
             )
         }
@@ -101,6 +107,28 @@ class LoginForm extends Component {
     logOutButton() {
         this.setState({login: false})        
     }
+
+    handleUserVisitsClick() {
+        this.setState({userVisits: !this.state.userVisits})     
+    }
+
+    viewUserVisitsButton() {
+		if (this.state.userVisits) {
+			return (
+                <div>
+                    <button onClick={this.handleUserVisitsClick}>
+                        Close list of your visits
+                    </button>
+                    <VisitList email={this.state.email}/>
+                </div>
+            )
+		}
+		else {
+			return <button onClick={this.handleUserVisitsClick}>
+			View list of your visits
+			</button>
+		}
+	}
 
 	render() {
 		return (
