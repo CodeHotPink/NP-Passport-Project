@@ -242,13 +242,46 @@ def individual_park_info():
 @app.route('/all_park_names', methods=['POST'])
 @cross_origin()
 def all_park_names():
-	""" Returning individual park info for park page view """
+	""" Returns all park names for add visit form """
 	parks = Park.query.all()
 	parks_json = {"parks": []}
 	for park in parks:
 		parks_json["parks"].append(park.park_name)
 	return jsonify(parks_json)
 
+# @app.route('/add_user_visit', methods=['POST'])
+# @cross_origin()
+# def add_user_visit():
+# 	""" Returning individual park info for park page view """
+# 	data = request.get_json()
+# 	print(data)
+# 	first = data["first"]
+# 	last = data["last"]
+# 	gender = data["gender"]
+# 	birthday = data["birthday"]
+# 	postal = data["postal"]
+# 	user_state = states[data["userState"]]
+# 	email = data["email"]
+# 	password = data["password"]
+# 	query_email = User.query.filter(User.email == email)
+# 	if query_email.count() > 0:
+# 		message = f"{email} is already registered."
+# 		return jsonify({"message": message,
+# 						"newRegistration": "false"})
+# 	else:
+# 		db_user = User(first_name=first,
+# 					last_name=last,
+# 					gender=gender,
+# 					birthday=birthday,
+# 					postal_code=postal,
+# 					state=user_state,
+# 					email=email,
+# 					password=password)
+# 		db.session.add(db_user)
+# 		db.session.commit()
+# 		message = f"{db_user.first_name} {db_user.last_name} has been successfully registered"
+# 		return jsonify({"message": message,
+# 						"newRegistration": "true"})
 	
 
 if __name__ == "__main__":

@@ -142,7 +142,7 @@ class LoginForm extends Component {
                     <button onClick={this.handleUserVisitsClick}>
                         Close list of your visits
                     </button>
-                    <AddVisit allParkNames={this.state.allParkNames}/>
+                    <AddVisit allParkNames={this.state.allParkNames} email={this.state.email}/>
                     <VisitList email={this.state.email}/>
                 </div>
             )
