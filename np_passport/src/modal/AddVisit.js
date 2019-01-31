@@ -45,17 +45,19 @@ class AddVisit extends Component {
                                 visitParkName:this.state.visitParkName})
             })
         .then(data => data.json())
-        // .then((data) => {
-        //     console.log("it hit the server")
-        //     if (data["newRegistration"] === 'false') {
-        //         alert(data["message"])
-        //     }
-        //     else {
-        //         alert(data["message"])
-        //         this.clearRegistrationForm()
-        //         this.closeModalHandler()
-        //     }
-        // })	
+        .then((data) => {
+            console.log("it hit the server")
+            console.log(data)
+            if (data["close"] === true) {
+                alert("it's reading that it's true")
+                alert(data["message"])
+                this.closeModalHandler()
+            }
+            else {
+                alert("it's reading that it's false")
+                alert(data["message"])
+            }
+        })	
         .catch(error => console.error(error));	
         }
 

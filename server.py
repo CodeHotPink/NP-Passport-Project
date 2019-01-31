@@ -249,6 +249,17 @@ def all_park_names():
 		parks_json["parks"].append(park.park_name)
 	return jsonify(parks_json)
 
+def is_visit_duplicate(user_id,park_id_from_form,visit_date):
+	visits = Visit.query.filter(Visit.user_id == user_id).all()
+	for visit in visits:
+		park = visit.park_id
+		date_of_visit = visit.visit_date
+		date_of_visit = datetime.datetime.strftime(date_of_visit,'%Y-%m-%d')
+		if park == park_id_from_form and date_of_visit == visit_date:
+			return True
+		else:
+			return False
+
 @app.route('/add_user_visit', methods=['POST'])
 @cross_origin()
 def add_user_visit():
@@ -258,18 +269,31 @@ def add_user_visit():
 	user_id = User.query.filter(User.email == email).first()
 	user_id = user_id.user_id
 	park_name = data["visitParkName"]
-	park_id = Park.query.filter(Park.park_name == park_name).first()
-	park_id = park_id.park_id
-	visit_date = data["visitDateChange"]
-	user_visit = Visit(user_id=user_id,
-						park_id=park_id,
-						visit_date=visit_date)
-	db.session.add(user_visit)
-	db.session.commit()
-# 		message = f"{db_user.first_name} {db_user.last_name} has been successfully registered"
-# 		return jsonify({"message": message,
-# 						"newRegistration": "true"})
-	
+	park_id = Park.query.filter(Park.park_name == park_name)
+	if park_id.count() > 0:
+		park_id = Park.query.filter(Park.park_name == park_name).first()
+		park_id = park_id.park_id
+		visit_date = data["visitDateChange"]
+		visit_duplicate = is_visit_duplicate(user_id,park_id,visit_date)
+		if visit_duplicate:
+			message = "This visit is already entered."
+			print(message)
+			return jsonify({"message": message})
+		else:
+			user_visit = Visit(user_id=user_id,
+							park_id=park_id,
+							visit_date=visit_date)
+			db.session.add(user_visit)
+			db.session.commit()
+			visit_date = f"{visit_date[5:7]}-{visit_date[8:10]}-{visit_date[0:4]}"
+			message = f"Your visit to {park_name} on {visit_date} has been entered successfully."
+			print(message)
+			return jsonify({"message": message,
+							"close": True})
+	else:
+		message = "Enter valid park name"
+		return jsonify({"message": message})
+		
 
 if __name__ == "__main__":
 	# connect_to_db(app)
