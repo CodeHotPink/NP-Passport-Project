@@ -33,38 +33,31 @@ class AddVisit extends Component {
         }
 
     addUserVisit() {
-        console.log('you pressed to submit, will show state')
-        console.log(this.state)
-        console.log('this is props passed in')
-        console.log(this.props)
-    }
-
-    // addUserVisit() {
-    //     fetch("http://localhost:5000/add_user_visit", {
-    //         method: "POST",
-    //         mode: "cors",
-    //         credentials: "include",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({email:this.props.email,
-    //                             visitDateChange:this.state.visitDateChange,
-    //                             visitParkName:this.state.visitParkName})
-    //         })
-    //     .then(data => data.json())
-    //     .then((data) => {
-    //         console.log("it hit the server")
-    //         if (data["newRegistration"] === 'false') {
-    //             alert(data["message"])
-    //         }
-    //         else {
-    //             alert(data["message"])
-    //             this.clearRegistrationForm()
-    //             this.closeModalHandler()
-    //         }
-    //     })	
-    //     .catch(error => console.error(error));	
-    //     }
+        fetch("http://localhost:5000/add_user_visit", {
+            method: "POST",
+            mode: "cors",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({email:this.props.email,
+                                visitDateChange:this.state.visitDateChange,
+                                visitParkName:this.state.visitParkName})
+            })
+        .then(data => data.json())
+        // .then((data) => {
+        //     console.log("it hit the server")
+        //     if (data["newRegistration"] === 'false') {
+        //         alert(data["message"])
+        //     }
+        //     else {
+        //         alert(data["message"])
+        //         this.clearRegistrationForm()
+        //         this.closeModalHandler()
+        //     }
+        // })	
+        .catch(error => console.error(error));	
+        }
 
 
     handleParkNameChange(event) {

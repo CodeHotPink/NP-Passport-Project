@@ -249,36 +249,23 @@ def all_park_names():
 		parks_json["parks"].append(park.park_name)
 	return jsonify(parks_json)
 
-# @app.route('/add_user_visit', methods=['POST'])
-# @cross_origin()
-# def add_user_visit():
-# 	""" Returning individual park info for park page view """
-# 	data = request.get_json()
-# 	print(data)
-# 	first = data["first"]
-# 	last = data["last"]
-# 	gender = data["gender"]
-# 	birthday = data["birthday"]
-# 	postal = data["postal"]
-# 	user_state = states[data["userState"]]
-# 	email = data["email"]
-# 	password = data["password"]
-# 	query_email = User.query.filter(User.email == email)
-# 	if query_email.count() > 0:
-# 		message = f"{email} is already registered."
-# 		return jsonify({"message": message,
-# 						"newRegistration": "false"})
-# 	else:
-# 		db_user = User(first_name=first,
-# 					last_name=last,
-# 					gender=gender,
-# 					birthday=birthday,
-# 					postal_code=postal,
-# 					state=user_state,
-# 					email=email,
-# 					password=password)
-# 		db.session.add(db_user)
-# 		db.session.commit()
+@app.route('/add_user_visit', methods=['POST'])
+@cross_origin()
+def add_user_visit():
+	""" Returning individual park info for park page view """
+	data = request.get_json()
+	email = data["email"]
+	user_id = User.query.filter(User.email == email).first()
+	user_id = user_id.user_id
+	park_name = data["visitParkName"]
+	park_id = Park.query.filter(Park.park_name == park_name).first()
+	park_id = park_id.park_id
+	visit_date = data["visitDateChange"]
+	user_visit = Visit(user_id=user_id,
+						park_id=park_id,
+						visit_date=visit_date)
+	db.session.add(user_visit)
+	db.session.commit()
 # 		message = f"{db_user.first_name} {db_user.last_name} has been successfully registered"
 # 		return jsonify({"message": message,
 # 						"newRegistration": "true"})
