@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import VisitItem from './VisitItem';
+import VisitUserItem from './VisitUserItem';
 
 class VisitList extends Component {
 	constructor(props){
@@ -24,9 +24,9 @@ class VisitList extends Component {
 			return <div>{this.state.visits["userId"]} have not visited any parks yet</div>
 		}
 		else {
-			return this.state.visits["visits"].map(visit => <VisitItem visit={visit} />)
+			return this.state.visits["visits"].map(visit => <VisitUserItem allParkNames={this.props.allParkNames["parks"]} visit={visit} />)
 		}
-		return this.state.visits["visits"].map(visit => <VisitItem visit={visit} />)
+		return this.state.visits["visits"].map(visit => <VisitUserItem visit={visit} />)
 	}
 
 	fetchVisits() {

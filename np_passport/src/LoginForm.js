@@ -143,7 +143,7 @@ class LoginForm extends Component {
                         Close list of your visits
                     </button>
                     <AddVisit allParkNames={this.state.allParkNames} email={this.state.email}/>
-                    <VisitList email={this.state.email}/>
+                    <VisitList allParkNames={this.state.allParkNames} email={this.state.email}/>
                 </div>
             )
 		}

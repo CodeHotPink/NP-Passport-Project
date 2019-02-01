@@ -1,0 +1,29 @@
+/* this is the HTML to add to React
+<a href="http://www.textures4photoshop.com/tex/grunge-and-rust/crack-grunge-texture-png.aspx" title="download grunge png texture">Download Grunge PNG texture</a>
+<div>
+  <h1 class="stamp-text">January 28, 2019</h1>
+</div> */
+
+a{
+    color:black;
+    font-family:sans-serif;
+  }
+  h1{
+    font-size:7em;
+    color:red;
+    display:inline-block;
+    font-family:sans-serif;
+    padding:10px 20px;
+    margin:40px;
+    transform:rotate(-5deg);
+  }
+  
+  .stamp-text{
+    border:10px solid red;
+    -webkit-mask-size: contain;
+    -webkit-mask-image: url("http://www.textures4photoshop.com/tex/thumbs/crack-grunge-texture-PNG-thumb24.png");
+    -o-mask-image:url("http://www.textures4photoshop.com/tex/thumbs/crack-grunge-texture-PNG-thumb24.png");
+    -moz-mask-image:url("http://www.textures4photoshop.com/tex/thumbs/crack-grunge-texture-PNG-thumb24.png");
+    -ms-mask-image:url("http://www.textures4photoshop.com/tex/thumbs/crack-grunge-texture-PNG-thumb24.png");
+    mask-image: url("http://www.textures4photoshop.com/tex/thumbs/crack-grunge-texture-PNG-thumb24.png");
+  }

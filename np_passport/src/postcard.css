@@ -1,0 +1,108 @@
+body {
+    margin: 0;
+    font-size: 21px;
+    box-sizing: border-box;
+  }
+  
+  .absolute {
+    position: absolute;
+  }
+  
+  [name="receiver-name"],
+  [name="sender-name"],
+  [name="reply-text"] {
+    font-family: "Homemade Apple";
+    background: transparent;
+    border: none;
+    margin-left: 10px;
+    width: 210px;
+    font-size: 0.55em;
+    letter-spacing: 2px;
+    padding: 5px;
+  }
+  
+  [name="receiver-name"],
+  [name="sender-name"],
+  [name="reply-text"], {
+    margin-left: 10px;
+    width: 210px;
+    font-size: 0.55em;
+    letter-spacing: 2px;
+    padding: 5px;
+    border: none;
+  }
+  
+  .postcard {
+    position: relative;
+    width: 370px;
+    height: 249px;
+    margin: 0 auto;
+    background: url('http://webbacklinks.info/wp-content/uploads/2018/11/vintage-postcard-template-back-2-indd.jpg'); /*img from: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/Styling_HTML_forms */
+    font-family: "MedievalSharp";
+    border: 2px solid #ccc;
+    box-shadow: 7px 7px 20px #555;
+    background-repeat: no-repeat;
+    background-size: 370px 249px;
+  }
+  
+  .receiver {
+    right: -55px;
+    top: 90px;
+  }
+  
+  .sender {
+    right: -55px;
+    top: 115px;
+  }
+  
+  .reply {
+    right: -55px;
+    top: 140px;
+  }
+  
+  .message {
+    left: 25px;
+    top: 100px;
+  }
+  
+  .message textarea {
+    margin-top: -70px;
+    padding: 10px;
+    font-size: 0.6em;
+    background: transparent;
+    letter-spacing: 3px;
+    line-height: 1.5em;
+    border: none;
+  }
+  
+  .send-btn {
+    right: 130px;
+    top: 360px;
+  }
+  
+  button,
+  [type="submit"],
+  .password__show {
+    font: 0.6em sans-serif;
+    font-weight: bold;
+    padding: 10px;
+    background: transparent;
+    border: 2px solid black;
+    border-radius: 5px;
+    transform: rotate(-1.5deg);
+  }
+
+  label {
+      transform: rotate(-1.6deg);
+  }
+  
+  .send-btn:hover {
+    background: #ccc;
+    top: 362px;
+  }
+  
+  textarea:focus,
+  input:focus,
+  button:focus {
+    outline-color: #ccc;
+  }
