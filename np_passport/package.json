@@ -5,8 +5,11 @@
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-react": "^6.24.1",
+    "bootstrap": "^4.2.1",
+    "google-map-react": "^1.1.2",
     "react": "^16.6.3",
     "react-bootstrap": "^0.32.4",
+    "react-bootstrap-card": "^0.2.1",
     "react-datepicker": "^2.0.0",
     "react-dom": "^16.6.3",
     "react-scripts": "^2.1.3"

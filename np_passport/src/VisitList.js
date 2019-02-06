@@ -24,7 +24,9 @@ class VisitList extends Component {
 			return <div>{this.state.visits["userId"]} have not visited any parks yet</div>
 		}
 		else {
+			// this is where I should call passport component & change state here to update the pages of the book
 			return this.state.visits["visits"].map(visit => <VisitUserItem allParkNames={this.props.allParkNames["parks"]} visit={visit} />)
+			// <PassportBook allParkNames={this.props.allParkNames["parks"]} visits={this.state.visits["visits"]} />)
 		}
 		return this.state.visits["visits"].map(visit => <VisitUserItem visit={visit} />)
 	}

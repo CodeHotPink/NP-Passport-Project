@@ -22,7 +22,7 @@ body {
     opacity: 1;
     transition: all .05s ease-in-out;
   /*   animation is what's turning the page, need to add in onClick event listener */
-    animation: turnpage 0s infinite linear;
+    animation: turnpage 20s linear;
   }
   
   /* This is technically the second page */
@@ -44,8 +44,8 @@ body {
       height: 100%;
       transform: rotateY(180deg);
       opacity: 0;
-  /*     below is the flipping page animation */
-  /*     animation: opac 2s infinite linear; */
+  /*     below is the animation of flipping the page, i.e. changing the text */
+      animation: opac 20s linear;
   }
   
   .line {

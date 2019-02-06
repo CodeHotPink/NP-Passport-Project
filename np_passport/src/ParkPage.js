@@ -4,6 +4,8 @@ import ParkItem from './ParkItem';
 import VisitItem from './VisitItem';
 import ReviewList from './ReviewList';
 import ErrorPhoto from './404';
+import ParkMap from './ParkMap';
+import {Col, Row, Grid} from 'react-bootstrap';
 
 class ParkPage extends Component {
 	constructor(props){
@@ -115,6 +117,9 @@ class ParkPage extends Component {
 					</object><br />
 					{this.state.parkInfo.parkDescription}<br /><br />
 					{this.state.parkInfo.parkWeather}<br /><br />
+					<Row>
+						<ParkMap testProp='test prop'/>
+					</Row>
 					{this.renderParkReviews()}
 					{this.viewVisitsButton()}
 				</div>

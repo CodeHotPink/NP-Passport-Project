@@ -81,6 +81,7 @@ body {
   }
   
   button,
+  td,
   [type="submit"],
   .password__show {
     font: 0.6em sans-serif;

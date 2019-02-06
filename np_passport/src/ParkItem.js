@@ -3,6 +3,7 @@ import ReviewList from './ReviewList';
 import ParkList from './ParkList';
 import ParkPage from './ParkPage';
 import ErrorPicture from './404';
+import {Col, Row, Grid} from 'react-bootstrap';
 
 const ParkItem = ({park, handleShowParksClick, handleParkPageClick, boundSetState}) => {        
   const image = park['images'][0]['url']
@@ -25,17 +26,28 @@ const ParkItem = ({park, handleShowParksClick, handleParkPageClick, boundSetStat
     boundSetState({'parkImageTwo':secondImage})
     }
   return (
-    <div>
+    <div className='container'>
+      <Row>
+      <Col md='auto'>
+      <Row>
+      <Col md={{ span: 6, offset: 3 }}>
       <button onClick={viewParkPage}>{parkName}</button>
-      <object data={image} type="image/png" height='100' width='100'>
-        <img src={secondImage} alt={imageAlt} height='100' width='100'/>
+      </Col>
+      </Row>
+      <Row>
+      <object data={image} type="image/png" height='300' width='500'>
+        <img src={secondImage} alt={imageAlt} height='300' width='500'/>
       </object>
-      {address}<br />
-      {city}, {state} {zipCode}<br />
-      {phoneNumber}<br />
+      </Row>
+      </Col>
+      <Col md='6' id='map'>
+      <Row style={{height: 38}}>
       <td onClick={()=> window.open(`https://www.nps.gov/${parkCode}/index.htm`, "_blank")}>{parkName}'s website</td>
-      Put # of stars
-    </div>
+      </Row>
+      </Col>
+      </Row>
+      </div>
+
   );
 };
 
