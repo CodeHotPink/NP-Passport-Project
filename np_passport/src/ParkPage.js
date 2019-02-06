@@ -111,17 +111,30 @@ class ParkPage extends Component {
 		console.log(this.state)
 		if (this.state.parkInfo) {
 			return (
-				<div>
-					<object data={this.state.parkInfo.parkPhoto} type="image/png" height='100' width='100'>
-						<img src={ErrorPhoto} alt={this.props.imageAlt} height='100' width='100'/>
-					</object><br />
-					{this.state.parkInfo.parkDescription}<br /><br />
-					{this.state.parkInfo.parkWeather}<br /><br />
+				<div className='container'>
+				<Row>
+					<Col md='6'>
+						<object data={this.state.parkInfo.parkPhoto} type="image/png" height='300' width='500'>
+							<img src={ErrorPhoto} alt={this.props.imageAlt} height='300' width='500'/>
+						</object>
+					</Col>
+					<Col md='6'>
+							{this.state.parkInfo.parkDescription}
+						<Row>
+							{this.state.parkInfo.parkWeather}
+						</Row>
+					</Col>
+				</Row>>
+				<Row>
+
 					<Row>
 						<ParkMap testProp='test prop'/>
 					</Row>
-					{this.renderParkReviews()}
-					{this.viewVisitsButton()}
+					<Row>
+						{this.renderParkReviews()}
+						{this.viewVisitsButton()}
+					</Row>
+				</Row>
 				</div>
 			)
 		} else {
