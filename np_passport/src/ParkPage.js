@@ -111,7 +111,7 @@ class ParkPage extends Component {
 		const AnyReactComponent = ({ text }) => <div>{text}</div>;
 		const {parks} = this.state;
 		if (this.state.parkInfo) {
-			console.log(Number(this.state.parkInfo))
+			console.log(this.props)
 			return (
 				<div className='container'>
 				<Row>
@@ -121,7 +121,9 @@ class ParkPage extends Component {
 						</object>
 					</Col>
 					<Col md='6'>
+						<Row>
 							{this.state.parkInfo.parkDescription}
+						</Row>
 					</Col>
 				</Row>
 				<Row>

@@ -11,7 +11,19 @@ body {
 
 .container {
   background:url("./images/topography.png") fixed center;
-  background-color: red;
+}
+
+.centerContent {
+  margin: 0 auto;
+}
+
+.centerPicContainer {
+  width: 100%;
+}
+
+.centerPic {
+  margin: auto;
+  width: 50%;
 }
 
 .App {

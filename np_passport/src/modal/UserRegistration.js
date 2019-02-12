@@ -167,7 +167,7 @@ class UserRegistration extends Component {
     }
     render () {
         return (
-            <div>
+            <div id='test'>
                 { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Register Now!</button>
