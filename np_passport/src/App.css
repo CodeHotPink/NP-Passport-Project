@@ -11,6 +11,7 @@ body {
 
 .container {
   background:url("./images/topography.png") fixed center;
+  background-color: red;
 }
 
 .App {

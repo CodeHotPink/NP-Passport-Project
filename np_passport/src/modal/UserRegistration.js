@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import RegistrationModal from './RegistrationModal';
+import {Col, Row, Grid} from 'react-bootstrap';
+import registrationPicture from './../images/registrationModalPicture.jpg';
 
 class UserRegistration extends Component {
     constructor(props) {
@@ -175,45 +177,123 @@ class UserRegistration extends Component {
                     show={this.state.isShowing}
                     close={this.closeModalHandler}
                     register={this.handleRegister}>
-                        <form onSubmit={this.handleSubmit}>
-                            <label>
-                            First Name:
-                            </label>
-                            <input type="text" maxLength="50" value={this.state.value} onChange={this.handleFirstChange} />
-                            <label>
-                            Last Name:
-                            </label>
-                            <input type="text" maxLength="50" value={this.state.value} onChange={this.handleLastChange} />
-                            <label>
-                            Gender:
-                            </label>
-                            <select value={this.state.value} onChange={this.handleGenderChange}>
-                                <option value="M">Male</option>
-                                <option value="F">Female</option>
-                                <option selected defaultValue="NA">N/A</option>
-                            </select>
-                            <br />
-                            <label>
-                            Birthday:
-                            </label>
-                            <input type="date" name="birthday" min="1900-01-01" max="2006-01-01" value={this.state.value} onChange={this.handleBirthdayChange}/>
-                            <label>
-                            Postal Code:
-                            </label>
-                            <input type="text" maxLength="5" value={this.state.value} onChange={this.handlePostalChange} />
-                            <label>
-                            State:
-                            </label>
-                            <select value={this.state.value} onChange={this.handleUsStateChange}>{this.state.states.map(this.createOptions)}</select>
-                            <label>
-                            Email:
-                            </label>
-                            <input type="text" maxLength="100" value={this.state.value} onChange={this.handleEmailChange} />
-                            <label>
-                            Password:
-                            </label>
-                            <input type={this.state.type} maxLength="100" value={this.state.value} onChange={this.handlePasswordChange} /><span className="password__show" onClick={this.showHide}>{this.state.type === 'password' ? 'Show' : 'Hide'}</span>
-                        </form>
+                        <div className='container'>
+                            <Row>
+                                <Col md={7}>
+                                    <form onSubmit={this.handleSubmit}>
+                                    <Row>
+                                        <Col>
+                                        <label>
+                                        First Name:
+                                        </label>
+                                        </Col>
+                                        <Col>
+                                            <div id='registrationModalInput'>
+                                                <input type="text" maxLength="50" value={this.state.value} onChange={this.handleFirstChange} />
+                                            </div>
+                                        </Col> 
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <label>
+                                            Last Name:
+                                            </label>
+                                        </Col>
+                                        <Col>
+                                            <div id='registrationModalInput'>
+                                                <input type="text" maxLength="50" value={this.state.value} onChange={this.handleLastChange} />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <label>
+                                            Gender:
+                                            </label>
+                                        </Col>
+                                        <Col>
+                                            <div id='registrationModalInput'>
+                                                <select value={this.state.value} onChange={this.handleGenderChange}>
+                                                    <option value="M">Male</option>
+                                                    <option value="F">Female</option>
+                                                    <option selected defaultValue="NA">N/A</option>
+                                                </select>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <label>
+                                            Birthday:
+                                            </label>
+                                        </Col>
+                                        <Col>
+                                            <div id='registrationModalInput'>
+                                                <input type="date" name="birthday" min="1900-01-01" max="2006-01-01" value={this.state.value} onChange={this.handleBirthdayChange}/>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <label>
+                                            Postal Code:
+                                            </label>
+                                        </Col>
+                                        <Col>
+                                            <div id='registrationModalInput'>
+                                                <input type="text" maxLength="5" value={this.state.value} onChange={this.handlePostalChange} />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <label>
+                                            State:
+                                            </label>
+                                        </Col>
+                                        <Col>
+                                            <div id='registrationModalInput'>
+                                                <select value={this.state.value} onChange={this.handleUsStateChange}>{this.state.states.map(this.createOptions)}</select>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <label>
+                                            Email:
+                                            </label>
+                                        </Col>
+                                        <Col>
+                                            <div id='registrationModalInput'>
+                                                <input type="text" maxLength="100" value={this.state.value} onChange={this.handleEmailChange} />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <label>
+                                            Password:
+                                            </label>
+                                        </Col>
+                                        <Col>
+                                            <div id='registrationModalInput'>
+                                                <input type={this.state.type} maxLength="100" value={this.state.value} onChange={this.handlePasswordChange} /><span className="password__show" onClick={this.showHide}>{this.state.type === 'password' ? 'Show' : 'Hide'}</span>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    </form>
+                                </Col>
+                                <Col md={5}>
+                                    <div id='registrationModalPicture'>
+                                        <Row>
+                                            <div id='becomeATrekker'>
+                                                Become a Trekker!
+                                            </div>
+                                        </Row>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
                 </RegistrationModal>
             </div>
         );
