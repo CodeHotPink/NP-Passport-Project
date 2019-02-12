@@ -3,9 +3,11 @@ import data from './national_parks_list';
 import ParkItem from './ParkItem';
 import VisitItem from './VisitItem';
 import ReviewList from './ReviewList';
-import ErrorPhoto from './404';
+import ErrorPhoto from './images/404';
 import ParkMap from './ParkMap';
 import {Col, Row, Grid} from 'react-bootstrap';
+import GoogleMapReact from 'google-map-react';
+import boot from './images/boot.png';
 
 class ParkPage extends Component {
 	constructor(props){
@@ -106,10 +108,10 @@ class ParkPage extends Component {
 	}
 
 	render() {
+		const AnyReactComponent = ({ text }) => <div>{text}</div>;
 		const {parks} = this.state;
-		console.log(this.props)
-		console.log(this.state)
 		if (this.state.parkInfo) {
+			console.log(Number(this.state.parkInfo))
 			return (
 				<div className='container'>
 				<Row>
@@ -120,20 +122,31 @@ class ParkPage extends Component {
 					</Col>
 					<Col md='6'>
 							{this.state.parkInfo.parkDescription}
-						<Row>
-							{this.state.parkInfo.parkWeather}
-						</Row>
 					</Col>
-				</Row>>
+				</Row>
 				<Row>
-
-					<Row>
-						<ParkMap testProp='test prop'/>
-					</Row>
-					<Row>
+					{this.state.parkInfo.parkWeather}
+				</Row>
+				<Row className='map' style={{ height: '300px', width: '500px', backgroundColor: 'red' }} >
+					<GoogleMapReact
+						bootstrapURLKeys={{ key: this.state.parkInfo.google }}
+						defaultCenter={{lat: Number(this.state.parkInfo.latitude), lng: Number(this.state.parkInfo.longitude)}}
+						defaultZoom={8}
+						>
+						<AnyReactComponent
+							lat={this.state.parkInfo.latitude}
+							lng={this.state.parkInfo.longitude}
+							text={<img src={boot} height='10' />}
+						/>
+					</GoogleMapReact>
+				</Row>
+				<Row>
+					<Col md='6'>
 						{this.renderParkReviews()}
+					</Col>
+					<Col md='6'>
 						{this.viewVisitsButton()}
-					</Row>
+					</Col>
 				</Row>
 				</div>
 			)

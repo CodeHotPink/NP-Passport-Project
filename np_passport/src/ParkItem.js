@@ -2,7 +2,7 @@ import React from 'react';
 import ReviewList from './ReviewList';
 import ParkList from './ParkList';
 import ParkPage from './ParkPage';
-import ErrorPicture from './404';
+import ErrorPicture from './images/404';
 import {Col, Row, Grid} from 'react-bootstrap';
 
 const ParkItem = ({park, handleShowParksClick, handleParkPageClick, boundSetState}) => {        

@@ -2,6 +2,7 @@ from model import (Park, User, Visit, Review, connect_to_db, db)
 from flask import (Flask, jsonify, redirect, request, session)
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
+import key
 import datetime
 import pdb
 
@@ -237,6 +238,7 @@ def individual_park_info():
 	park_name = data["park"]
 	park = Park.query.filter(Park.park_name == park_name).first()
 	park_info = park_info_to_json(park)
+	park_info['google'] = key.GOOGLE
 	return jsonify(park_info)
 
 @app.route('/all_park_names', methods=['POST'])
