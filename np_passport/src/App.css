@@ -9,8 +9,40 @@ body {
   background-color: #636B46;
 }
 
+#reviewBody {
+  text-align: justify;
+  border: 3px solid #636B46;
+}
+
+#reviewHeader {
+  border: 3px solid #636B46;
+}
+
 .container {
   background:url("./images/topography.png") fixed center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+#parkPageName {
+  font-family: 'Pacifico', cursive;  
+  font-size: 15mm;
+  height: 100%;
+  width: 100%; 
+}
+
+#parkPageAddress {
+  font-family: 'Pacifico', cursive;  
+  font-size: 5mm;
+  height: 100%;
+  width: 100%; 
+}
+
+.row {
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 .centerContent {

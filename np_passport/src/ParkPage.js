@@ -64,6 +64,7 @@ class ParkPage extends Component {
 		.then((data) => {
 			this.setState({'parkInfo': data})
 			console.log(this.state.parkInfo)
+			console.log(this.state)
 			console.log(this.state.parkInfo.parkDescription)
 		})	
 		.catch(error => console.error(error));	
@@ -115,6 +116,16 @@ class ParkPage extends Component {
 			return (
 				<div className='container'>
 				<Row>
+					<div id='parkPageName'>
+						{this.state.parkInfo.parkName}
+					</div>
+				</Row>
+				<Row>
+					<div id='parkPageAddress'>
+						{this.state.parkInfo.parkAddress}, {this.state.parkInfo.parkState}
+					</div>
+				</Row>
+				<Row>
 					<Col md='6'>
 						<object data={this.state.parkInfo.parkPhoto} type="image/png" height='300' width='500'>
 							<img src={ErrorPhoto} alt={this.props.imageAlt} height='300' width='500'/>
@@ -129,7 +140,8 @@ class ParkPage extends Component {
 				<Row>
 					{this.state.parkInfo.parkWeather}
 				</Row>
-				<Row className='map' style={{ height: '300px', width: '500px', backgroundColor: 'red' }} >
+				<div className='centerPic'>
+				<Row className='map' style={{ height: '300px', width: '500px' }} >
 					<GoogleMapReact
 						bootstrapURLKeys={{ key: this.state.parkInfo.google }}
 						defaultCenter={{lat: Number(this.state.parkInfo.latitude), lng: Number(this.state.parkInfo.longitude)}}
@@ -141,7 +153,9 @@ class ParkPage extends Component {
 							text={<img src={boot} height='10' />}
 						/>
 					</GoogleMapReact>
+					
 				</Row>
+				</div>
 				<Row>
 					<Col md='6'>
 						{this.renderParkReviews()}

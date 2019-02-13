@@ -10,18 +10,24 @@ const ReviewItem = ({review}) => {
   
   return (
     <div className='container'>
+      <div id='reviewHeader'>
+        <Row>
+          {userId} 
+        </Row>
+        <Row>
+          Rated {parkId} 
+        </Row>
+        <Row>
+          {numOfStars}/5 stars.
+        </Row>
+        <Row>
+          {reviewDate}
+        </Row>
+      </div>
       <Row>
-        <Col md='3'>
-          <Row>
-            {userId} rated {parkId} {numOfStars}/5 stars.
-          </Row>
-          <Row>
-            {reviewDate}
-          </Row>
-        </Col>
-        <Col md='9'>
+        <div id='reviewBody'>
           {textReview}
-        </Col>
+        </div>
       </Row>
       <br />
     </div>
