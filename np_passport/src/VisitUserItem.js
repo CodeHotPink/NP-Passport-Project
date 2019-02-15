@@ -5,6 +5,8 @@ import passportBook from './passportBook.css';
 const VisitItem = ({visit, allParkNames}) => {
   console.log(allParkNames)
   const parkId = visit['parkId']
+  const parkPic = visit['parkPic']
+  console.log(visit)
   const userId = visit['userId']
   const firstName = visit['firstName']
   const lastName = visit['lastName']
@@ -41,25 +43,46 @@ const VisitItem = ({visit, allParkNames}) => {
 
 
   return (
-    <div>
-      <button onClick={turnPage}>Click Me</button>
-    <div class="book">
-    {/* this is what I need to return onClick
-      <div class="pagenext">
-        <p> THIRD PAGE?</p>
-      </div> */}
-      <div class="page">
-          <p>SECOND PAGE?</p>
-          {/* this is also what I need to return onClick
-        <div class="pageprev">
-          <p>BACK OF PAGE 2</p>
-        </div> */}
-      </div>  
-      <div class="line"></div>
-        <p>NATIONAL PARKS PASSPORT</p>
-        <p>PROPERTY OF {firstName} {lastName}</p>
+    <div class="container">
+      <div class="card-wrapper">
+        <div class="greeting">
+          Greetings from
+        </div>
+        <div class="city">
+            <div class="city-title" style={{background: `url(${String(parkPic)}) no-repeat center center/ cover`, WebkitBackgroundClip: "text"}}>
+            {parkId}
+          </div>
+          <div class="city-title-shadow">
+            {parkId}
+          </div>
+        </div>
+        <div class="stamp-text">
+          23 VISITED {visitDate}
+        </div>
+      </div>
     </div>
-    </div>
+    // <div className='stamp-text'>
+    //   {visitDate}
+    // </div>
+    // <div>
+    //   <button onClick={turnPage}>Click Me</button>
+    // <div class="book">
+    // this is what I need to return onClick
+    //   <div class="pagenext">
+    //     <p> THIRD PAGE?</p>
+    //   </div>
+    //   <div class="page">
+    //       <p>SECOND PAGE?</p>
+    //       this is also what I need to return onClick
+    //     <div class="pageprev">
+    //       <p>BACK OF PAGE 2</p>
+    //     </div>
+    //   </div>  
+    //   <div class="line"></div>
+    //     <p>NATIONAL PARKS PASSPORT</p>
+    //     <p>PROPERTY OF {firstName} {lastName}</p>
+    // </div>
+    // </div>
   );
 };
 

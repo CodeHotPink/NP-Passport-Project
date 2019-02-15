@@ -41,10 +41,12 @@ def visit_list_to_json(visit_list):
 			last_name = user.last_name
 			user = f"{first_name} {last_name}"
 			park = Park.query.filter(Park.park_id == individual_visit.park_id).first()
+			park_pic = park.park_photo
 			park = park.park_name
 			date = individual_visit.visit_date
 			date = datetime.datetime.strftime(date, '%m-%d-%Y')
 			visit = {"parkId":park,
+						"parkPic":park_pic,
 						"userId":user,
 						"firstName":first_name,
 						"lastName":last_name,
@@ -112,6 +114,7 @@ def display_park_visits():
 	park_id = park.park_id
 	list_of_visits = Visit.query.join(Visit.park).filter(Park.park_id == park_id).all()
 	visits = visit_list_to_json(list_of_visits)
+	print('the visits to json has been completed')
 	return jsonify(visits)
 
 @app.route('/user_log_in', methods=['POST'])

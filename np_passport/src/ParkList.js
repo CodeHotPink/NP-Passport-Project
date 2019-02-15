@@ -8,7 +8,7 @@ class ParkList extends Component {
 		super(props);
 		this.state = {
 			parks: data['data'],
-			showParks: false,
+			showParks: true,
 			singleParkPage: false
 		}
 		this.renderParks = this.renderParks.bind(this)
