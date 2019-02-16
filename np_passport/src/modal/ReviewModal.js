@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Modal.css';
 
-const visitModal = (props) => {
+const reviewModal = (props) => {
     return (
         <div>
             <div className="modal-wrapper"
@@ -11,7 +11,7 @@ const visitModal = (props) => {
                     opacity: props.show ? '1' : '0'
                 }}>
                 <div className="modal-header">
-                    <h3>Add Visit</h3>
+                    <h3>Add Review</h3>
                     <span className="close-modal-btn" onClick={props.close}>×</span>
                 </div>
                 <div className="modal-body">
@@ -20,11 +20,11 @@ const visitModal = (props) => {
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <button className="btn-continue" onClick={props.addVisit}> ADD</button>
+                    <button className="btn-continue" onClick={props.addReview}> ADD</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default visitModal;
+export default reviewModal;
