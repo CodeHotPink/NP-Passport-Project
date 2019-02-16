@@ -298,7 +298,45 @@ def add_user_visit():
 	else:
 		message = "Enter valid park name"
 		return jsonify({"message": message})
-		
+
+@app.route('/add_user_review', methods=['POST'])
+@cross_origin()
+def add_user_review():
+	""" Returning individual park info for park page view """
+	data = request.get_json()
+	num_of_stars = data["numStarsChange"]
+	num_of_stars = int(num_of_stars)
+	text_review = data["reviewText"]
+	email = data["email"]
+	user_id = User.query.filter(User.email == email).first()
+	user_id = user_id.user_id
+	park_name = data["reviewParkName"]
+	park_id = Park.query.filter(Park.park_name == park_name)
+	if park_id.count() > 0:
+		park_id = Park.query.filter(Park.park_name == park_name).first()
+		park_id = park_id.park_id
+		review_date = datetime.date.today()
+		review_duplicate = is_review_duplicate(user_id,park_id,review_date)
+		if review_duplicate:
+			message = "This review is already entered."
+			print(message)
+			return jsonify({"message": message})
+		else:
+			user_review = Review(park_id=park_id,
+							user_id=user_id,
+							num_of_stars=num_of_stars,
+							text_review=text_review,
+							review_date=review_date)
+			db.session.add(user_review)
+			db.session.commit()
+			review_date = f"{review_date[5:7]}-{review_date[8:10]}-{review_date[0:4]}"
+			message = f"Your review to {park_name} on {review_date} has been entered successfully."
+			print(message)
+			return jsonify({"message": message,
+							"close": True})
+	else:
+		message = "Enter valid park name"
+		return jsonify({"message": message})		
 
 if __name__ == "__main__":
 	# connect_to_db(app)

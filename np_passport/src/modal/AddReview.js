@@ -42,7 +42,8 @@ class AddReview extends Component {
             },
             body: JSON.stringify({email:this.props.email,
                                 numStarsChange:this.state.numStarsChange,
-                                reviewParkName:this.state.reviewParkName})
+                                reviewParkName:this.state.reviewParkName,
+                                reviewText:this.state.reviewText})
             })
         .then(data => data.json())
         .then((data) => {
