@@ -57,7 +57,7 @@ const VisitItem = ({visit, allParkNames}) => {
           </div>
         </div>
         <div class="stamp-text">
-          23 VISITED {visitDate}
+           VISITED {visitDate}
         </div>
       </div>
     </div>

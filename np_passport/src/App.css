@@ -174,7 +174,7 @@ $shadow-color: #C03820;
 }
 
 .stamp-text{
-  font-size:3em;
+  font-size:1em;
   color:red;
   display:inline-block;
   font-family:sans-serif;
