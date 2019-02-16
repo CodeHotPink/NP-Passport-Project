@@ -265,6 +265,17 @@ def is_visit_duplicate(user_id,park_id_from_form,visit_date):
 		else:
 			return False
 
+def is_review_duplicate(user_id,park_id_from_form,review_date):
+	reviews = Review.query.filter(Review.user_id == user_id).all()
+	for review in reviews:
+		park = review.park_id
+		date_of_review = review.review_date
+		date_of_review = datetime.datetime.strftime(date_of_review,'%Y-%m-%d')
+		if park == park_id_from_form and date_of_review == review_date:
+			return True
+		else:
+			return False			
+
 @app.route('/add_user_visit', methods=['POST'])
 @cross_origin()
 def add_user_visit():
