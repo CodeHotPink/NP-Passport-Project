@@ -12,7 +12,7 @@ class AddReview extends Component {
         this.closeModalHandler = this.closeModalHandler.bind(this)
         this.handleAddReview = this.handleAddReview.bind(this)
         this.handleParkNameChange = this.handleParkNameChange.bind(this)
-        this.handleReviewDateChange = this.handleReviewDateChange.bind(this)
+        this.handleNumStarsChange = this.handleNumStarsChange.bind(this)
         this.createOptions = this.createOptions.bind(this)
         this.showHide = this.showHide.bind(this)
         this.clearRegistrationForm = this.clearRegistrationForm.bind(this)
@@ -41,7 +41,7 @@ class AddReview extends Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({email:this.props.email,
-                                reviewDateChange:this.state.reviewDateChange,
+                                numStarsChange:this.state.numStarsChange,
                                 reviewParkName:this.state.reviewParkName})
             })
         .then(data => data.json())
@@ -67,9 +67,13 @@ class AddReview extends Component {
         console.log(this.state.reviewParkName)
 
       }
-    handleReviewDateChange(event) {
-        this.setState({reviewDateChange: event.target.value})
+    handleNumStarsChange(event) {
+        this.setState({numStarsChange: event.target.value})
       }
+    handleTextChange(event) {
+    this.setState({reviewText: event.target.value})
+    }
+
     showHide(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -111,9 +115,20 @@ class AddReview extends Component {
                                 {this.props.allParkNames["parks"].map(this.createOptions)}
                             </datalist>
                             <label>
-                            Review Date:
+                            Number of stars:
                             </label>
-                            <input type="date" name="reviewDate" value={this.state.value} onChange={this.handleReviewDateChange}/>
+                            <select>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            {this.handleNumStarsChange}/>
+                            <label>
+                            Review Text:
+                            </label>
+                            <input type="text" maxLength="5000" value={this.state.value} onChange={this.handleTextChange} />
                         </form>
                 </ReviewModal>
             </div>
