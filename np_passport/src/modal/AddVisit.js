@@ -53,7 +53,6 @@ class AddVisit extends Component {
                 this.closeModalHandler()
             }
             else {
-                alert("it's reading that it's false")
                 alert(data["message"])
             }
         })	
