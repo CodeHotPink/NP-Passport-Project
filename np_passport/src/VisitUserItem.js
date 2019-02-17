@@ -44,12 +44,12 @@ const VisitItem = ({visit, allParkNames}) => {
 
   return (
     <div class="container">
-      <div class="card-wrapper">
+      <div class="card-wrapper" style={{background: `url(${String(parkPic)}) no-repeat center center/ cover`, WebkitBackgroundClip: "border-box"}}>
         <div class="greeting">
           Greetings from
         </div>
         <div class="city">
-            <div class="city-title" style={{background: `url(${String(parkPic)}) no-repeat center center/ cover`, WebkitBackgroundClip: "text"}}>
+            <div class="city-title">
             {parkId}
           </div>
           <div class="city-title-shadow">

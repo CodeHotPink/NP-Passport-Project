@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import VisitList from './VisitList';
 import UserRegistration from './modal/UserRegistration';
 import AddVisit from './modal/AddVisit';
+import AddReview from './modal/AddReview';
+import {Col, Row, Grid} from 'react-bootstrap';
 
 class LoginForm extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
+            isShowing: false,
             login: false,
             email: "",
             password: "",
@@ -14,6 +17,7 @@ class LoginForm extends Component {
             type: "password",
             userVisits: false
         }
+        this.closeModalHandler = this.closeModalHandler.bind(this)
         this.userOrGuest = this.userOrGuest.bind(this)
 		this.loginForm = this.loginForm.bind(this)
         this.handleEmailChange = this.handleEmailChange.bind(this)
@@ -25,6 +29,13 @@ class LoginForm extends Component {
         this.handleUserVisitsClick = this.handleUserVisitsClick.bind(this)
         this.fetchAllParkNames = this.fetchAllParkNames.bind(this)
   } 
+
+  closeModalHandler = () => {
+    this.setState({
+        isShowing: false
+    });
+}
+
   componentDidMount() {
       this.fetchAllParkNames()
   }
@@ -138,12 +149,26 @@ class LoginForm extends Component {
     viewUserVisitsButton() {
 		if (this.state.userVisits) {
 			return (
-                <div>
-                    <button onClick={this.handleUserVisitsClick}>
-                        Close list of your visits
-                    </button>
-                    <AddVisit allParkNames={this.state.allParkNames} email={this.state.email}/>
-                    <VisitList allParkNames={this.state.allParkNames} email={this.state.email}/>
+                <div className='container'>
+                    <Row>
+                        <button onClick={this.handleUserVisitsClick} style={{margin: 'auto'}}>
+                            Close list of your visits
+                        </button>
+                    </Row>
+                    <Row>
+                        { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
+                        <Col md={6}>
+                            <AddVisit allParkNames={this.state.allParkNames} email={this.state.email}/>
+                        </Col>
+                        <Col md={6}>
+                            <AddReview allParkNames={this.state.allParkNames} email={this.state.email}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <div style={{margin: 'auto'}}>
+                            <VisitList allParkNames={this.state.allParkNames} email={this.state.email}/>
+                        </div>
+                    </Row>
                 </div>
             )
 		}

@@ -16,6 +16,7 @@ class AddReview extends Component {
         this.createOptions = this.createOptions.bind(this)
         this.showHide = this.showHide.bind(this)
         this.clearRegistrationForm = this.clearRegistrationForm.bind(this)
+        this.handleTextChange = this.handleTextChange.bind(this)
     }
     openModalHandler = () => {
         this.setState({
@@ -98,7 +99,7 @@ class AddReview extends Component {
     render () {
         return (
             <div>
-                { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
+                {/* { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null } */}
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Add Review</button>
 
@@ -118,14 +119,13 @@ class AddReview extends Component {
                             <label>
                             Number of stars:
                             </label>
-                            <select>
+                            <select onChange={this.handleNumStarsChange}>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
-                            {this.handleNumStarsChange}/>
                             <label>
                             Review Text:
                             </label>

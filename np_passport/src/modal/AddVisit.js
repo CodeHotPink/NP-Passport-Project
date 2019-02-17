@@ -49,7 +49,6 @@ class AddVisit extends Component {
             console.log("it hit the server")
             console.log(data)
             if (data["close"] === true) {
-                alert("it's reading that it's true")
                 alert(data["message"])
                 this.closeModalHandler()
             }
@@ -93,7 +92,7 @@ class AddVisit extends Component {
     render () {
         return (
             <div>
-                { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
+                {/* { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null } */}
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Add Visit</button>
 

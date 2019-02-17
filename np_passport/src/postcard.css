@@ -37,7 +37,8 @@ body {
     width: 370px;
     height: 249px;
     margin: 0 auto;
-    background: url('http://webbacklinks.info/wp-content/uploads/2018/11/vintage-postcard-template-back-2-indd.jpg'); /*img from: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/Styling_HTML_forms */
+    background: url('https://developer.mozilla.org/files/4151/background.jpg');
+    /* background: url('http://webbacklinks.info/wp-content/uploads/2018/11/vintage-postcard-template-back-2-indd.jpg'); img from: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/Styling_HTML_forms */
     font-family: "MedievalSharp";
     border: 2px solid #ccc;
     box-shadow: 7px 7px 20px #555;
@@ -47,21 +48,21 @@ body {
   
   .receiver {
     right: -55px;
-    top: 90px;
+    top: 85px;
   }
   
   .sender {
     right: -55px;
-    top: 115px;
+    top: 110px;
   }
   
   .reply {
     right: -55px;
-    top: 140px;
+    top: 135px;
   }
   
   .message {
-    left: 25px;
+    left: 18px;
     top: 100px;
   }
   

@@ -7,7 +7,7 @@ class UserRegistration extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowing: false,
+            isShowing: true,
             type: "password",
             states: new Array("Alabama", 
             "Alaska", 
@@ -168,15 +168,15 @@ class UserRegistration extends Component {
     render () {
         return (
             <div id='test'>
-                { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
+                {/* { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Register Now!</button>
-
+                */}
                 <RegistrationModal
                     className="modal"
                     show={this.state.isShowing}
                     close={this.closeModalHandler}
-                    register={this.handleRegister}>
+                    register={this.handleRegister}> 
                         <div className='container'>
                             <Row>
                                 <Col md={7}>

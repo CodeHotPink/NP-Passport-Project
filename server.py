@@ -315,6 +315,7 @@ def add_user_visit():
 def add_user_review():
 	""" Returning individual park info for park page view """
 	data = request.get_json()
+	print(data)
 	num_of_stars = data["numStarsChange"]
 	num_of_stars = int(num_of_stars)
 	text_review = data["reviewText"]
@@ -340,6 +341,7 @@ def add_user_review():
 							review_date=review_date)
 			db.session.add(user_review)
 			db.session.commit()
+			review_date = str(review_date)
 			review_date = f"{review_date[5:7]}-{review_date[8:10]}-{review_date[0:4]}"
 			message = f"Your review to {park_name} on {review_date} has been entered successfully."
 			print(message)
