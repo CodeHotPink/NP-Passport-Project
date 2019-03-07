@@ -4,6 +4,7 @@ import './App.css';
 import ParkList from './ParkList';
 import LoginForm from './LoginForm'
 import boot from './images/boot.png';
+import {Navbar} from 'react-bootstrap';
 
 class App extends Component {
 
@@ -11,9 +12,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <nav>
-          <img src={boot} height='40' />Trekker
-          </nav>
+          <Navbar.Brand href="#home">
+            <img src={boot} height='40' />Trekker
+          </Navbar.Brand>
         </header>
         <LoginForm />
         <ParkList />
